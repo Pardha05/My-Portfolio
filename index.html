@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Developer portfolio - B.Tech CSE (AI & ML) student seeking internships and software engineering roles.">
+  <meta name="keywords" content="portfolio, developer, B.Tech, CSE, AI, ML, software engineer, intern">
+  <title>Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css?v=101">
+</head>
+
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">&lt;Portfolio /&gt;</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <!-- <li><button class="btn-admin" id="adminBtn"><i class="fas fa-lock"></i> Admin</button></li> -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO SECTION ═══ -->
+  <section class="hero" id="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-greeting reveal-up">Hello, I'm</p>
+      <h1 class="hero-name reveal-zoom" id="heroName">Your Name</h1>
+      <p class="hero-title reveal-up" id="heroTitle">B.Tech CSE (AI & ML) Student | Aspiring Software Engineer</p>
+      <p class="hero-tagline reveal-up" id="heroTagline">Passionate about building intelligent systems and crafting
+        clean code.</p>
+      <div class="hero-buttons reveal-up">
+        <a href="#resume" class="btn btn-primary"><i class="fas fa-eye"></i> View Resume</a>
+        <a href="#projects" class="btn btn-outline"><i class="fas fa-folder-open"></i> View Projects</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="mouse-wheel"></div>
+      </div>
+      <p>Scroll Down</p>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT SECTION ═══ -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title reveal-up">About Me</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <p id="aboutIntro">I'm a B.Tech Computer Science & Engineering student specializing in AI and ML...</p>
+          <div class="about-details">
+            <div class="about-detail-item">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <h4>Education</h4>
+                <p id="aboutEducation">B.Tech in CSE (AI & ML)</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-university"></i>
+              <div>
+                <h4>University</h4>
+                <p id="aboutUniversity">Your University Name</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div>
+                <h4>Year</h4>
+                <p id="aboutYear">2023 – 2027</p>
+              </div>
+            </div>
+            <div class="about-detail-item">
+              <i class="fas fa-bullseye"></i>
+              <div>
+                <h4>Goal</h4>
+                <p id="aboutGoal">Seeking internships and entry-level software roles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual reveal-right">
+          <div class="code-block">
+            <div class="code-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="code-filename">about.js</span>
+            </div>
+            <pre class="code-content"><code><span class="code-keyword">const</span> <span class="code-var">developer</span> = {
+  <span class="code-prop">name</span>: <span class="code-string">"Your Name"</span>,
+  <span class="code-prop">role</span>: <span class="code-string">"Student Developer"</span>,
+  <span class="code-prop">focus</span>: <span class="code-string">"AI & ML"</span>,
+  <span class="code-prop">seeking</span>: <span class="code-string">"Internships"</span>,
+  <span class="code-prop">passion</span>: <span class="code-string">"Building things"</span>,
+  <span class="code-method">learn</span>() {
+    <span class="code-keyword">return</span> <span class="code-string">"Always growing"</span>;
+  }
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS SECTION ═══ -->
+  <section class="section section-alt" id="skills">
+    <div class="container">
+      <h2 class="section-title reveal-up">Skills</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="skills-grid" id="skillsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS SECTION ═══ -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title reveal-up">Projects</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Populated by JS -->
+      </div>
+      <button class="btn btn-outline add-btn admin-only" id="addProjectBtn" style="display:none;">
+        <i class="fas fa-plus"></i> Add Project
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ ACHIEVEMENTS SECTION ═══ -->
+  <section class="section section-alt" id="achievements">
+    <div class="container">
+      <h2 class="section-title reveal-up">Achievements & Certifications</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="achievements-grid" id="achievementsGrid">
+        <!-- Populated by JS -->
+      </div>
+      <button class="btn btn-outline add-btn admin-only" id="addAchievementBtn" style="display:none;">
+        <i class="fas fa-plus"></i> Add Achievement
+      </button>
+      <p class="reveal-up" style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+        For more certificates, please check my <a
+          href="https://www.linkedin.com/in/pardha-sai-bobba-3a2491335?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+          target="_blank" id="moreCertificatesLink" class="btn-text">LinkedIn profile</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ HOBBIES SECTION (MAGIC BENTO) ═══ -->
+  <section class="section bento-section" id="hobbies">
+    <div class="container relative">
+      <h2 class="section-title reveal-up">Hobbies & Interests</h2>
+      <div class="section-line reveal-up"></div>
+
+      <div class="bento-grid-wrapper mt-10">
+        <div class="bento-grid" id="magicBentoGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RESUME SECTION ═══ -->
+  <section class="section section-alt" id="resume">
+    <div class="container">
+      <h2 class="section-title reveal-up">Resume</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="resume-content reveal-up">
+        <div class="resume-icon">
+          <i class="fas fa-file-pdf"></i>
+        </div>
+        <p>View my resume to learn more about my education, skills, and experience.</p>
+        <div id="resumeStatus" class="resume-actions">
+          <a href="/uploads/resume.pdf" target="_blank" class="btn btn-primary" id="viewResumeBtn"
+            style="display:none;">
+            <i class="fas fa-eye"></i> View Resume
+          </a>
+          <a href="/uploads/resume.pdf" download class="btn btn-outline" id="downloadResumeBtn" style="display:none;">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+          <div id="resumeUnavailable" class="resume-unavailable" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Resume unavailable — please check back later
+          </div>
+        </div>
+        <div class="admin-only" id="resumeUploadArea" style="display:none;">
+          <div class="upload-zone" id="uploadZone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Drag & drop your resume PDF here, or click to browse</p>
+            <input type="file" id="resumeFileInput" accept=".pdf" hidden>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT SECTION ═══ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title reveal-up">Get In Touch</h2>
+      <div class="section-line reveal-up"></div>
+      <div class="contact-grid">
+        <div class="contact-info reveal-left">
+          <p id="contactMessage">I'm always open to new opportunities and conversations. Feel free to reach out!</p>
+          <div class="contact-links">
+            <a href="mailto:pardhasai@example.com" class="contact-link magic-card" id="contactEmail">
+              <i class="fas fa-envelope"></i>
+              <span>pardhasai@example.com</span>
+            </a>
+            <a href="https://www.linkedin.com/in/pardha-sai-bobba-3a2491335?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+              target="_blank" class="contact-link magic-card" id="contactLinkedin">
+              <i class="fab fa-linkedin"></i>
+              <span>LinkedIn Profile</span>
+            </a>
+            <a href="https://github.com/Pardha05" target="_blank" class="contact-link magic-card" id="contactGithub">
+              <i class="fab fa-github"></i>
+              <span>GitHub Profile</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form-wrapper magic-card reveal-right">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <input type="text" id="formName" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" id="formEmail" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <textarea id="formMessage" placeholder="Your Message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-logo">&lt;Portfolio /&gt;</p>
+        <div class="footer-socials">
+          <a href="https://github.com/Pardha05" target="_blank" aria-label="GitHub" id="footerGithub"><i
+              class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/pardha-sai-bobba-3a2491335?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+            target="_blank" aria-label="LinkedIn" id="footerLinkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:pardhasai@example.com" aria-label="Email" id="footerEmail"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="footer-copy">&copy; 2026 B. Pardha Sai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ ADMIN LOGIN MODAL ═══ -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <button class="modal-close" id="loginModalClose"><i class="fas fa-times"></i></button>
+      <h3><i class="fas fa-shield-alt"></i> Admin Login</h3>
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="text" id="loginUsername" placeholder="Username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+        </div>
+        <p class="login-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary btn-full">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ EDIT MODAL ═══ -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal modal-large">
+      <button class="modal-close" id="editModalClose"><i class="fas fa-times"></i></button>
+      <h3 id="editModalTitle">Edit Section</h3>
+      <div id="editModalBody">
+        <!-- Dynamic edit form content injected by JS -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ═══ MAGIC DOCK NAVIGATION (MOBILE ONLY) ═══ -->
+  <div class="magic-dock-wrapper">
+    <nav class="magic-dock" id="magicDock">
+      <div class="dock-item" data-label="About" onclick="scrollToSection('about')">
+        <div class="dock-icon"><i class="fas fa-user-circle"></i></div>
+        <div class="dock-label">About</div>
+      </div>
+      <div class="dock-item" data-label="Skills" onclick="scrollToSection('skills')">
+        <div class="dock-icon"><i class="fas fa-brain"></i></div>
+        <div class="dock-label">Skills</div>
+      </div>
+      <div class="dock-item" data-label="Projects" onclick="scrollToSection('projects')">
+        <div class="dock-icon"><i class="fas fa-code"></i></div>
+        <div class="dock-label">Projects</div>
+      </div>
+      <div class="dock-item" data-label="Achievements" onclick="scrollToSection('achievements')">
+        <div class="dock-icon"><i class="fas fa-trophy"></i></div>
+        <div class="dock-label">Achievements</div>
+      </div>
+      <div class="dock-item" data-label="Hobbies" onclick="scrollToSection('hobbies')">
+        <div class="dock-icon"><i class="fas fa-gamepad"></i></div>
+        <div class="dock-label">Hobbies</div>
+      </div>
+      <div class="dock-item" data-label="Resume" onclick="scrollToSection('resume')">
+        <div class="dock-icon"><i class="fas fa-file-pdf"></i></div>
+        <div class="dock-label">Resume</div>
+      </div>
+      <div class="dock-item" data-label="Contact" onclick="scrollToSection('contact')">
+        <div class="dock-icon"><i class="fas fa-envelope"></i></div>
+        <div class="dock-label">Contact</div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ═══ ADMIN TOOLBAR ═══ -->
+  <div class="admin-toolbar" id="adminToolbar" style="display:none;">
+    <span><i class="fas fa-edit"></i> Edit Mode Active</span>
+    <button class="btn btn-sm" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/dock.js"></script>
+  <script src="js/app.js?v=9"></script>
+  <script src="js/bento.js?v=9"></script>
+</body>
+
+</html>

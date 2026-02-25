@@ -1,0 +1,169 @@
+{
+  "hero": {
+    "name": "B. Pardha Sai",
+    "title": "B.Tech CSE (AI & ML) Student",
+    "tagline": "Passionate about building intelligent systems and crafting clean code. Eager to learn, grow, and contribute to meaningful technology.",
+    "resumeFile": "uploads/resume.pdf"
+  },
+  "about": {
+    "intro": "I am a dedicated computer science student with a passion for AI and machine learning. I love solving complex problems and building software that makes a difference.",
+    "education": "B.Tech in Computer Science (AI & ML)",
+    "university": "VIT-AP University",
+    "year": "2024 - 2028",
+    "goal": "Driven by a passion for innovation and financial markets, I aim to build scalable technology that solves real business problems. I am seeking internship opportunities where I can merge my technical expertise in AI and development with my financial acumen to create impactful, market-ready solutions."
+  },
+  "skills": {
+    "categories": [
+      {
+        "name": "Web Development",
+        "icon": "globe",
+        "skills": [
+          {
+            "name": "HTML",
+            "level": "Advanced"
+          },
+          {
+            "name": "CSS",
+            "level": "Beginner"
+          },
+          {
+            "name": "JavaScript",
+            "level": "Beginner"
+          },
+          {
+            "name": "Node.js",
+            "level": "Beginner"
+          }
+        ]
+      },
+      {
+        "name": "Programming",
+        "icon": "code",
+        "skills": [
+          {
+            "name": "Java",
+            "level": "Intermediate"
+          },
+          {
+            "name": "C",
+            "level": "Intermediate"
+          },
+          {
+            "name": "Python",
+            "level": "Intermediate"
+          }
+        ]
+      },
+      {
+        "name": "Databases",
+        "icon": "database",
+        "skills": [
+          {
+            "name": "SQL",
+            "level": "Intermediate"
+          },
+          {
+            "name": "MongoDB",
+            "level": "Beginner"
+          }
+        ]
+      },
+      {
+        "name": "Tools",
+        "icon": "tool",
+        "skills": [
+          {
+            "name": "Git",
+            "level": "Advanced"
+          },
+          {
+            "name": "GitHub",
+            "level": "Advanced"
+          },
+          {
+            "name": "VS Code",
+            "level": "Intermediate"
+          }
+        ]
+      },
+      {
+        "name": "Development Approach",
+        "icon": "cpu",
+        "skills": [
+          {
+            "name": "AI-Assisted Development",
+            "level": "Advanced"
+          },
+          {
+            "name": "Clean & Modular Code",
+            "level": "Advanced"
+          },
+          {
+            "name": "Version Control (Git Workflow)",
+            "level": "Advanced"
+          },
+          {
+            "name": "Rapid Feature Deployment",
+            "level": "Advanced"
+          }
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "title": "ServifyOne",
+      "description": "Transforming India's after-sales service experience through unified digital warranty management",
+      "techStack": [
+        "React",
+        "Node.js",
+        "MongoDB"
+      ],
+      "liveLink": "#",
+      "githubLink": "#",
+      "startDate": "2026-02-05",
+      "status": "in-progress",
+      "completionDate": ""
+    }
+  ],
+  "achievements": [
+    {
+      "type": "certification",
+      "title": "NISM Series V-A",
+      "description": "Preparing for Mutual Fund Distributors Certification."
+    },
+    {
+      "type": "competition",
+      "title": "AI Hackathon Participant",
+      "description": "Participated in a hackathon focused on AI solutions."
+    }
+  ],
+  "hobbies": [
+    {
+      "name": "Coding",
+      "icon": "terminal"
+    },
+    {
+      "name": "Listing Music",
+      "icon": "music"
+    },
+    {
+      "name": "Gaming",
+      "icon": "gamepad"
+    },
+    {
+      "name": "Driving",
+      "icon": "car"
+    },
+    {
+      "name": "Gym",
+      "icon": "Dumble"
+    }
+  ],
+  "contact": {
+    "email": "pardhasaibobba@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/pardha-sai-bobba-3a2491335?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "github": "https://github.com/Pardha05",
+    "message": "I'm currently looking for internships and new opportunities. Let's connect!"
+  }
+}
