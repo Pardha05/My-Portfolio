@@ -124,6 +124,49 @@
       "startDate": "2026-02-05",
       "status": "in-progress",
       "completionDate": ""
+    },
+    {
+      "title": "Fitness One Gym Website",
+      "description": "A modern, professional gym website featuring a premium dark navy and royal blue palette with neon accents.",
+      "techStack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "liveLink": "https://fitness-one-lb-nagar.netlify.app/",
+      "githubLink": "#",
+      "startDate": "",
+      "status": "completed",
+      "completionDate": ""
+    },
+    {
+      "title": "Sri Venkata Sai Swagruha Foods",
+      "description": "A sweetshop management system and website for online presence and business management.",
+      "techStack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "liveLink": "https://srivenkatasaiswagruhafoods.netlify.app/",
+      "githubLink": "#",
+      "startDate": "",
+      "status": "completed",
+      "completionDate": ""
+    },
+    {
+      "title": "Tirumala Smart Navigation System",
+      "description": "A smart navigation system utilizing Geolocation routing to provide precise directions.",
+      "techStack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Geolocation API"
+      ],
+      "liveLink": "https://tirumala-smart-navigation.netlify.app/",
+      "githubLink": "#",
+      "startDate": "",
+      "status": "completed",
+      "completionDate": ""
     }
   ],
   "achievements": [
