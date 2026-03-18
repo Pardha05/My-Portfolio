@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch content from JSON file (Static Site Mode)
 
   // Fetch content from JSON file (Static Site Mode)
-  fetch('data/content.json')
+  fetch('data/content.json?v=' + new Date().getTime())
     .then(response => response.json())
     .then(data => {
       window.siteContent = data;
