@@ -36,7 +36,13 @@ function renderAllSections() {
   if (!siteContent) return;
 
   // Hero
-  setText('heroName', siteContent.hero.name);
+  const nameEl = document.getElementById('heroName');
+  if (nameEl && siteContent.hero.name) {
+    nameEl.innerHTML = siteContent.hero.name.split('').map((char, index) => {
+      const isSpace = char === ' ';
+      return `<span class="jump-char">${isSpace ? '&nbsp;' : char}</span>`;
+    }).join('');
+  }
   setText('heroTitle', siteContent.hero.title);
   setText('heroTagline', siteContent.hero.tagline);
 
@@ -72,7 +78,7 @@ function renderAllSections() {
   renderSkills();
   renderProjects();
   renderAchievements();
-  renderHobbies();
+  renderAchievements();
 
   // Contact
   setText('contactMessage', siteContent.contact.message);
@@ -85,7 +91,8 @@ function renderAllSections() {
   updateLink('footerLinkedin', siteContent.contact.linkedin);
   updateLink('footerEmail', `mailto:${siteContent.contact.email}`);
 
-  // Re-init scroll reveal for dynamic elements
+  // Re-init magic effects and scroll reveal
+  if (window.initMagicBento) initMagicBento();
   setTimeout(initScrollReveal, 100);
 }
 
@@ -127,8 +134,16 @@ function renderProjects() {
           <button class="delete-item-btn" onclick="event.stopPropagation(); deleteProject(${i})" title="Delete"><i class="fas fa-trash"></i></button>
         </div>
       ` : ''}
-      <div class="project-card-icon">
-        <i class="fas fa-folder-open"></i>
+      <div class="folder-logo-container">
+        <svg class="folder-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path class="folder-body" d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          <g class="file-doc">
+            <rect x="7" y="7" width="10" height="10" rx="1" />
+            <line class="doc-line" x1="10" y1="10" x2="14" y2="10" />
+            <line class="doc-line" x1="10" y1="13" x2="14" y2="13" />
+          </g>
+          <path class="folder-body" d="M2 10h20v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9z" />
+        </svg>
       </div>
       <div class="project-title-row">
         <h3 class="project-title">${escapeHtml(proj.title)}</h3>
@@ -240,7 +255,78 @@ function renderSkills() {
       <div class="skill-card-header" onclick="toggleSkillCategory(this)">
         <div class="skill-card-header-left">
           <div class="skill-card-icon">
-            <i class="${iconMap[cat.icon] || 'fas fa-code'}"></i>
+            ${(() => {
+              if (cat.name === 'Programming') {
+                return `
+                  <div class="dev-link skill-icon-animated">
+                    <div class="icon-container">
+                      <span class="bracket">&lt;</span>
+                      <span class="slash">/</span>
+                      <span class="bracket">&gt;</span>
+                    </div>
+                  </div>`;
+              } else if (cat.name === 'Web Development') {
+                return `
+                  <div class="logo-wrapper">
+                    <svg class="design-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="browser-frame" x="2" y="4" width="20" height="16" rx="2" />
+                      <line class="browser-frame" x1="2" y1="8" x2="22" y2="8" />
+                      <rect class="box box-top" x="5" y="11" width="7" height="5" rx="1" />
+                      <rect class="box box-bottom" x="10" y="14" width="7" height="5" rx="1" />
+                      <g class="pen">
+                        <path d="M17 7L19 5L21 7L19 9L17 7Z" />
+                        <path d="M13 11L17 7" />
+                      </g>
+                    </svg>
+                  </div>`;
+              } else if (cat.name === 'Databases') {
+                return `
+                  <div class="stack-logo-container">
+                    <svg class="stack-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path class="connector" d="M17 6v12h-2" />
+                      <rect class="node" x="14" y="2" width="6" height="5" rx="1.5" />
+                      <rect class="layer layer-1" x="4" y="6" width="10" height="3" rx="1" />
+                      <rect class="layer layer-2" x="4" y="11" width="10" height="3" rx="1" />
+                      <rect class="layer layer-3" x="4" y="16" width="10" height="3" rx="1" />
+                    </svg>
+                  </div>`;
+              } else if (cat.name === 'Tools') {
+                return `
+                  <div class="settings-logo-container">
+                    <svg class="settings-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path class="cog" d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                      <path class="cog" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                      <g class="wrench" stroke="currentColor">
+                        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a2.12 2.12 0 00-3-3L14.7 6.3z" />
+                        <path d="M14.1 7.2l-9.1 9.1a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l9.1-9.1" />
+                        <path d="M3.5 17.5a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3a2.12 2.12 0 00-3-3l-3 3z" />
+                      </g>
+                    </svg>
+                  </div>`;
+              } else if (cat.name === 'Development Approach') {
+                return `
+                  <div class="blocks-container">
+                    <svg class="blocks-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g class="block block-b">
+                        <path class="face-left" d="M12 22l-4-2.3V15l4 2.3V22z" />
+                        <path class="face-right" d="M12 22l4-2.3V15l-4 2.3V22z" />
+                        <path class="face-top" d="M12 17.4l-4-2.3 4-2.3 4 2.3-4 2.3z" />
+                      </g>
+                      <g class="block block-tl">
+                        <path class="face-left" d="M8 14.7l-4-2.3V7.7l4 2.3v4.7z" />
+                        <path class="face-right" d="M8 14.7l4-2.3V7.7l-4 2.3v4.7z" />
+                        <path class="accent-face" d="M8 10l-4-2.3 4-2.3 4 2.3-4 2.3z" />
+                      </g>
+                      <g class="block block-tr">
+                        <path class="face-left" d="M16 14.7l-4-2.3V7.7l4 2.3v4.7z" />
+                        <path class="face-right" d="M16 14.7l4-2.3V7.7l-4 2.3v4.7z" />
+                        <path class="accent-face" d="M16 10l-4-2.3 4-2.3 4 2.3-4 2.3z" />
+                      </g>
+                    </svg>
+                  </div>`;
+              }
+              return `<i class="${iconMap[cat.icon] || 'fas fa-code'}"></i>`;
+            })()}
           </div>
           <h3 class="skill-card-title">${escapeHtml(cat.name)}</h3>
         </div>
@@ -318,6 +404,18 @@ function renderAchievements() {
           <button class="delete-item-btn" onclick="deleteAchievement(${i})" title="Delete"><i class="fas fa-trash"></i></button>
         </div>
       ` : ''}
+      <div class="cert-logo-container">
+        <svg class="cert-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path class="cert-frame" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+          <line class="cert-frame" x1="7" y1="9" x2="13" y2="9" />
+          <path class="cert-frame" d="M7 13h2" />
+          <g class="badge-group">
+            <path d="M15 17l2 2 2-2v4l-2-1-2 1v-4z" stroke="var(--accent)" fill="rgba(99, 102, 241, 0.2)" />
+            <circle class="badge-circle" cx="17" cy="14" r="4" />
+            <path class="star" d="M17 12.5l.6 1.2 1.4.2-1 1 .2 1.4-1.2-.7-1.2.7.2-1.4-1-1 1.4-.2.6-1.2z" />
+          </g>
+        </svg>
+      </div>
       <div class="achievement-type">${escapeHtml(ach.type)}</div>
       <h3 class="project-title" style="font-size:1rem; margin-bottom:8px;">${escapeHtml(ach.title)}</h3>
       <p class="project-desc">${escapeHtml(ach.description)}</p>
@@ -330,50 +428,7 @@ function renderAchievements() {
   }
 }
 
-// ══════════════════════════════════════════
-// RENDER: HOBBIES (MAGIC BENTO)
-// ══════════════════════════════════════════
-function renderHobbies() {
-  const grid = document.getElementById('magicBentoGrid');
-  if (!grid || !siteContent.hobbies) return;
 
-  const iconMap = {
-    car: 'fas fa-car',
-    code: 'fas fa-code',
-    terminal: 'fas fa-terminal',
-    gamepad: 'fas fa-gamepad',
-    music: 'fas fa-music',
-    camera: 'fas fa-camera',
-    book: 'fas fa-book',
-    gym: 'fas fa-dumbbell',
-    dumble: 'fas fa-dumbbell',
-    Dumble: 'fas fa-dumbbell'
-  };
-
-  const labels = ["Passion", "Creative", "Relax", "Travel", "Energy", "Skill"];
-
-  grid.innerHTML = siteContent.hobbies.map((hobby, i) => {
-    const cardIndex = (i % 6) + 1;
-    return `
-    <div class="bento-card magic-card card-${cardIndex} reveal-up" 
-         data-label="${labels[i] || 'Hobby'}" 
-         data-title="${escapeHtml(hobby.name)}" 
-         data-desc="One of my personal interests.">
-      <div class="card-content">
-        <div class="card-icon" style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent);">
-          <i class="${iconMap[hobby.icon] || iconMap[hobby.name.toLowerCase()] || 'fas fa-star'}"></i>
-        </div>
-        <span class="card-label">${labels[i] || 'Hobby'}</span>
-        <h3 class="card-title">${escapeHtml(hobby.name)}</h3>
-      </div>
-    </div>
-  `}).join('');
-
-  // Re-initialize bento effects after dynamic render
-  if (window.initMagicBento) {
-    window.initMagicBento();
-  }
-}
 
 
 // ══════════════════════════════════════════
@@ -588,7 +643,6 @@ function initHeroCanvas() {
 window.renderAllSections = renderAllSections;
 window.renderProjects = renderProjects;
 window.renderAchievements = renderAchievements;
-window.renderHobbies = renderHobbies;
 window.renderSkills = renderSkills;
 
 function showToast(message, type = 'info') {

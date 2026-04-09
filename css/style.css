@@ -1987,3 +1987,364 @@ body.admin-mode .admin-only {
 .dock-item.active::after {
   opacity: 1;
 }
+/* ── Animated Logo ── */
+.dev-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  user-select: none;
+  line-height: 1;
+}
+
+.icon-container {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+/* Default size for navbar/hero */
+.icon-container {
+  font-size: 1.6rem;
+}
+
+.bracket {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slash {
+  color: var(--accent);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
+  transform-origin: center;
+}
+
+.dev-link .text {
+  margin: 4px 0 0 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #d32f2f;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.dev-link:hover .slash {
+  transform: rotate(180deg) scale(1.1);
+  color: var(--accent-hover);
+}
+
+.dev-link:hover .bracket:first-child {
+  transform: translateX(-3px);
+}
+
+.dev-link:hover .bracket:last-child {
+  transform: translateX(3px);
+}
+
+.dev-link:hover .text {
+  color: var(--text-primary);
+  letter-spacing: 1.5px;
+}
+
+/* Override for Skill Card Icons - Trigger on entire card hover */
+.skill-icon-animated .icon-container {
+  font-size: 1rem;
+}
+
+.skill-card:hover .skill-icon-animated .slash {
+  transform: rotate(180deg) scale(1.1);
+  color: var(--accent-hover);
+}
+
+.skill-card:hover .skill-icon-animated .bracket:first-child {
+  transform: translateX(-2px);
+}
+
+
+/* ── Animated Skill Icons ── */
+
+/* Common Icon styles */
+.skill-card-icon .dev-link,
+.skill-card-icon .logo-wrapper,
+.skill-card-icon .stack-logo-container,
+.skill-card-icon .settings-logo-container,
+.skill-card-icon .blocks-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+}
+
+.skill-card-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--text-primary);
+  fill: none;
+  stroke-width: 1.5;
+  overflow: visible; /* Prevent clipping of floating elements */
+}
+
+/* Web Development Icon (Design) */
+.browser-frame { transition: all 0.3s; }
+.design-icon .box { fill: rgba(255, 255, 255, 0.05); stroke: var(--accent); transition: all 0.5s; }
+.design-icon .pen { stroke: var(--accent); transition: all 0.4s; transform-origin: center; }
+
+.skill-card:hover .browser-frame { stroke: var(--accent); }
+.skill-card:hover .box-top { transform: translate(2px, -2px); fill: rgba(99, 102, 241, 0.2); }
+.skill-card:hover .box-bottom { transform: translate(-2px, 2px); fill: rgba(99, 102, 241, 0.2); }
+.skill-card:hover .pen { transform: rotate(-15deg) translate(1px, -1px); stroke: var(--accent-hover); }
+
+/* Databases Icon (Stack) */
+.stack-svg .layer { transition: all 0.4s; fill: rgba(255, 255, 255, 0.05); }
+.stack-svg .connector { stroke: var(--accent); stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset 0.5s; }
+.stack-svg .node { fill: rgba(99, 102, 241, 0.1); stroke: var(--accent); transition: all 0.4s; }
+
+.skill-card:hover .layer-1 { transform: translateY(-3px); fill: rgba(255,255,255,0.1); }
+.skill-card:hover .layer-2 { transform: translateY(-1px); }
+.skill-card:hover .connector { stroke-dashoffset: 0; }
+.skill-card:hover .node { transform: scale(1.1) translateY(-2px); fill: var(--accent); stroke: #fff; }
+
+/* Tools Icon (Settings) */
+.settings-svg .cog { transition: all 0.5s; fill: rgba(255, 255, 255, 0.05); }
+.settings-svg .wrench { color: var(--accent); transition: all 0.4s; transform-origin: 35% 65%; }
+
+.skill-card:hover .settings-svg .cog { transform: rotate(60deg); fill: rgba(255, 255, 255, 0.1); stroke: var(--accent); }
+.skill-card:hover .settings-svg .wrench { transform: rotate(-15deg) translate(-1px, 1px); color: var(--accent-hover); }
+
+/* Development Approach Icon (Blocks) */
+.blocks-svg .block { transition: all 0.5s; stroke: var(--text-primary); }
+.blocks-svg .face-top { fill: rgba(255, 255, 255, 0.1); }
+.blocks-svg .face-right { fill: rgba(255, 255, 255, 0.05); }
+.blocks-svg .face-left { fill: rgba(255, 255, 255, 0.08); }
+.blocks-svg .accent-face { fill: var(--accent); stroke: var(--accent-hover); transition: all 0.4s; }
+
+.skill-card:hover .block-tl { transform: translate(-3px, -4px); }
+.skill-card:hover .block-tr { transform: translate(3px, -4px); }
+.skill-card:hover .accent-face { fill: var(--accent-hover); filter: drop-shadow(0 0 5px var(--accent)); }
+.skill-card:hover .block-b { transform: scale(1.05); }
+ 
+/* Animated Certificate Logo */
+.cert-logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  padding: 10px 0 15px 0; /* Added top padding */
+}
+
+.cert-svg {
+  width: 40px;
+  height: 40px;
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: all 0.3s ease;
+  overflow: visible; /* Prevent clipping during animation */
+}
+
+.cert-frame {
+  transition: all 0.3s ease;
+}
+
+.badge-group {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: 17px 14px;
+}
+
+.badge-circle {
+  fill: #1a1a1a;
+  stroke: var(--accent);
+  transition: fill 0.3s ease;
+}
+
+.star {
+  fill: none;
+  stroke: var(--accent);
+  transition: all 0.4s ease;
+}
+
+/* Hover Animations for Achievement Cards */
+.achievement-card:hover .cert-svg {
+  stroke: var(--text-primary);
+}
+
+.achievement-card:hover .cert-frame {
+  stroke: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.achievement-card:hover .badge-group {
+  transform: scale(1.1);
+}
+
+.achievement-card:hover .badge-circle {
+  fill: rgba(99, 102, 241, 0.1);
+}
+
+.achievement-card:hover .star {
+  fill: var(--accent);
+  transform: rotate(36deg);
+}
+
+/* Animated Profile/Resume Logo */
+.profile-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 10px auto 20px; /* Added top margin */
+}
+
+.profile-svg {
+  width: 80px;
+  height: 80px;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible; /* Prevent clipping */
+}
+
+.card-base {
+  stroke: var(--text-secondary);
+  fill: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.card-overlay {
+  stroke: var(--accent);
+  fill: rgba(99, 102, 241, 0.05);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: right;
+}
+
+.peel {
+  fill: var(--accent);
+  stroke: var(--accent);
+  transition: all 0.4s ease;
+}
+
+.avatar, .line {
+  stroke: var(--accent);
+  transition: all 0.3s ease;
+}
+
+/* Hover Animations for Resume Section */
+.resume-content:hover .card-overlay {
+  transform: translateX(-2px);
+  fill: rgba(99, 102, 241, 0.15);
+}
+
+.resume-content:hover .peel {
+  transform: scale(1.1) translate(-1px, -1px);
+}
+
+.resume-content:hover .avatar {
+  stroke-width: 2;
+  transform: scale(1.05);
+  transform-origin: center;
+}
+
+.resume-content:hover .card-base {
+  stroke: var(--text-primary);
+}
+
+/* Animated Folder Logo for Projects */
+.folder-logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  padding: 15px 0 15px 0; /* Added more top padding */
+}
+
+.folder-svg {
+  width: 40px;
+  height: 40px;
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: all 0.3s ease;
+  overflow: visible; /* CRITICAL: Allows document to lift out of viewBox */
+}
+
+.file-doc {
+  fill: #1a1a1a;
+  stroke: var(--accent);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translateY(2px);
+}
+
+.folder-body {
+  stroke: var(--text-secondary);
+  fill: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.doc-line {
+  stroke: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover Animations for Project Cards */
+.project-card:hover .folder-svg {
+  stroke: var(--text-primary);
+}
+
+.project-card:hover .file-doc {
+  transform: translateY(-8px);
+  fill: rgba(99, 102, 241, 0.1);
+}
+
+.project-card:hover .doc-line {
+  opacity: 1;
+}
+
+.project-card:hover .folder-body {
+  stroke: var(--accent);
+}
+
+/* Hero Name Jump Animation */
+.jump-char {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.jump-char:hover {
+  transform: translateY(-15px);
+  color: var(--accent);
+  text-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Subtle wave effect on section hover */
+.hero-content:hover .jump-char {
+  animation: wave 1s ease-in-out;
+  animation-delay: calc(var(--index) * 0.05s);
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+
+
+
+

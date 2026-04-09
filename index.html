@@ -31,7 +31,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#hobbies">Hobbies</a></li>
+
         <li><a href="#resume">Resume</a></li>
         <li><a href="#contact">Contact</a></li>
         <!-- <li><button class="btn-admin" id="adminBtn"><i class="fas fa-lock"></i> Admin</button></li> -->
@@ -169,28 +169,26 @@
     </div>
   </section>
 
-  <!-- ═══ HOBBIES SECTION (MAGIC BENTO) ═══ -->
-  <section class="section bento-section" id="hobbies">
-    <div class="container relative">
-      <h2 class="section-title reveal-up">Hobbies & Interests</h2>
-      <div class="section-line reveal-up"></div>
 
-      <div class="bento-grid-wrapper mt-10">
-        <div class="bento-grid" id="magicBentoGrid">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ═══ RESUME SECTION ═══ -->
-  <section class="section section-alt" id="resume">
+  <section class="section" id="resume">
     <div class="container">
       <h2 class="section-title reveal-up">Resume</h2>
       <div class="section-line reveal-up"></div>
-      <div class="resume-content reveal-up">
-        <div class="resume-icon">
-          <i class="fas fa-file-pdf"></i>
+      <div class="resume-content magic-card reveal-up">
+        <div class="profile-logo-container">
+          <svg class="profile-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect class="card-base" x="3" y="4" width="18" height="16" rx="2" />
+            <circle class="avatar" cx="8" cy="10" r="2" />
+            <path class="line" d="M6 14h4M6 16h3" stroke="var(--accent)" />
+            <g class="card-overlay">
+              <path d="M12 4h7a2 2 0 0 1 2 2v10l-4 4h-5V4z" />
+              <path class="peel" d="M21 16l-4 4v-2a2 2 0 0 1 2-2h2z" />
+              <line x1="14" y1="8" x2="18" y2="8" stroke="var(--accent)" />
+              <line x1="14" y1="12" x2="18" y2="12" stroke="var(--accent)" />
+            </g>
+          </svg>
         </div>
         <p>View my resume to learn more about my education, skills, and experience.</p>
         <div id="resumeStatus" class="resume-actions">
