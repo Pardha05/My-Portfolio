@@ -2348,3 +2348,117 @@ body.admin-mode .admin-only {
 
 
 
+
+/* ------------------------------------------
+   PILL NAV & ANIMATED SVGS
+   ------------------------------------------ */
+.social-pill-nav {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--bg-secondary);
+  padding: 15px 12px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.social-pill-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.social-pill-nav a:hover {
+  background: var(--bg-tertiary);
+}
+
+/* LinkedIn SVG — proper animated bounce */
+.linkedin-svg {
+  width: 1.5em;
+  height: 1.5em;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+.linkedin-svg .border-box {
+  stroke: var(--text-primary);
+  fill: transparent;
+  transition: stroke 0.35s ease, fill 0.35s ease;
+}
+.linkedin-svg .linkedin-text {
+  stroke: var(--text-secondary);
+  transition: stroke 0.35s ease, stroke-width 0.35s ease;
+}
+a:hover .linkedin-svg { animation: li-bounce 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+a:hover .linkedin-svg .border-box { stroke: #0077b5; fill: rgba(0,119,181,0.1); }
+a:hover .linkedin-svg .linkedin-text { stroke: #0077b5; stroke-width: 2.2; }
+@keyframes li-bounce {
+  0%   { transform: scale(1) rotate(0deg); }
+  20%  { transform: scale(1.3) rotate(-5deg); }
+  40%  { transform: scale(0.9) rotate(4deg); }
+  60%  { transform: scale(1.1) rotate(-2deg); }
+  80%  { transform: scale(0.97) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* GitHub SVG — full Octocat silhouette, no clipping */
+.github-icon {
+  width: 1.6em;
+  height: 1.6em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex-shrink: 0;
+}
+.github-icon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.github-octo-fill {
+  fill: var(--text-primary);
+  transition: fill 0.3s ease;
+}
+a:hover .github-octo-fill { fill: var(--accent); }
+a:hover .github-icon { animation: gh-wag 1.6s ease-in-out infinite; }
+@keyframes gh-wag {
+  0%,100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-8deg); }
+  75%      { transform: rotate(8deg); }
+}
+
+/* Gmail Flying Plane */
+.gmail-container { position: relative; width: 1.5em; height: 1.5em; display: inline-block; overflow: visible; }
+.envelope-svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; }
+.env-body { fill: none; stroke: var(--text-primary); stroke-width: 5; stroke-linejoin: round; }
+.env-flap { fill: none; stroke: var(--text-secondary); stroke-width: 5; stroke-linejoin: round; }
+.plane-svg { position: absolute; width: 50%; height: 50%; top: 10%; right: 10%; opacity: 0; }
+.plane-path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+a:hover .plane-svg { animation: fly-loop 2.5s ease-in-out infinite; }
+a:hover .env-body { stroke: var(--accent); }
+@keyframes fly-loop {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  30% { transform: translate(30px, -30px) rotate(-15deg); opacity: 0; }
+  31% { transform: translate(-60px, 30px) rotate(-15deg); opacity: 0; }
+  60% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .social-pill-nav {
+    display: none;
+  }
+}
