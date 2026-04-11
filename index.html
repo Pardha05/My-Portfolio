@@ -44,18 +44,21 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#hero" class="nav-logo">&lt;Portfolio /&gt;</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#achievements">Achievements</a></li>
-
         <li><a href="#resume">Resume</a></li>
         <li><a href="#contact">Contact</a></li>
-        <!-- <li><button class="btn-admin" id="adminBtn"><i class="fas fa-lock"></i> Admin</button></li> -->
       </ul>
     </div>
   </nav>
@@ -416,10 +419,6 @@
       <div class="dock-item" data-label="Achievements" onclick="scrollToSection('achievements')">
         <div class="dock-icon"><i class="fas fa-trophy"></i></div>
         <div class="dock-label">Achievements</div>
-      </div>
-      <div class="dock-item" data-label="Hobbies" onclick="scrollToSection('hobbies')">
-        <div class="dock-icon"><i class="fas fa-gamepad"></i></div>
-        <div class="dock-label">Hobbies</div>
       </div>
       <div class="dock-item" data-label="Resume" onclick="scrollToSection('resume')">
         <div class="dock-icon"><i class="fas fa-file-pdf"></i></div>

@@ -38,6 +38,31 @@
   --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* -- Light Theme Variables -- */
+:root.light-theme {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f3f5;
+  --bg-elevated: #ffffff;
+  --bg-input: #ffffff;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --text-muted: #868e96;
+
+  --accent: #4a6a8a;
+  --accent-hover: #3d5a7a;
+  --accent-muted: #d0d7de;
+  --accent-purple: #745fb5;
+
+  --border: #dee2e6;
+  --border-light: #e9ecef;
+
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
 /* ── Reset & Base ── */
 *,
 *::before,
@@ -1782,6 +1807,7 @@ body.admin-mode .admin-only {
     transition: right var(--transition);
     border-left: 1px solid var(--border);
     z-index: 999;
+    display: flex;
   }
 
   .nav-links.active {
@@ -2474,8 +2500,8 @@ a:hover .env-body { stroke: var(--accent); }
 
 .scroll-stack-outer {
   position: relative;
-  /* pt-[20vh] px-20 pb-[50rem] — match React wrapper */
-  padding-top: 10vh;
+  /* Match React exactly: pt-[20vh] */
+  padding-top: 20vh;
   padding-left: clamp(1rem, 4vw, 5rem);
   padding-right: clamp(1rem, 4vw, 5rem);
   padding-bottom: 50rem;  /* ensures last card can unpin */
@@ -2496,7 +2522,7 @@ a:hover .env-body { stroke: var(--accent); }
   min-height: 320px;
   padding: 48px;
   border-radius: 40px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   transform-origin: top center;
   will-change: transform, filter;
