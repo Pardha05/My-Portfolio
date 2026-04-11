@@ -11,20 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initHeroCanvas();
   initScrollReveal();
-  console.log('Portfolio App v9 Loaded');
-  // Fetch content from JSON file (Static Site Mode)
+  initLenis();
+  console.log('Portfolio App v10 Loaded');
 
-  // Fetch content from JSON file (Static Site Mode)
   fetch('data/content.json?v=' + new Date().getTime())
     .then(response => response.json())
     .then(data => {
       window.siteContent = data;
       renderAllSections();
+      setTimeout(initScrollStack, 200);
     })
     .catch(error => console.error('Error loading content:', error));
 
-  initContactForm();
-  initContactForm();
   initSmoothScroll();
   initModalEvents();
 });
@@ -113,62 +111,58 @@ function updateLink(id, href, text) {
 }
 
 // ══════════════════════════════════════════
-// RENDER: PROJECTS (Enhanced)
+// RENDER: PROJECTS — Scroll Stack Cards
 // ══════════════════════════════════════════
 function renderProjects() {
   const grid = document.getElementById('projectsGrid');
   if (!grid || !siteContent.projects) return;
 
   const isAdmin = document.body.classList.contains('admin-mode');
+  const bgColors = ['#0f172a','#1e1b4b','#064e3b','#1e3a5f','#3b0764','#14532d'];
 
   grid.innerHTML = siteContent.projects.map((proj, i) => {
+    const bg = bgColors[i % bgColors.length];
     const statusLabels = { 'completed': 'Completed', 'in-progress': 'In Progress', 'future': 'Future' };
     const statusClass = proj.status || 'completed';
     const statusLabel = statusLabels[statusClass] || 'Completed';
 
+    const liveBtn = proj.liveLink && proj.liveLink !== '#'
+      ? `<a href="${escapeHtml(proj.liveLink)}" target="_blank" class="btn btn-outline btn-sm" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Live</a>`
+      : (proj.liveLink === '#' ? `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Coming soon','info')"><i class="fas fa-external-link-alt"></i> Live</button>` : '');
+
+    const ghBtn = proj.githubLink && proj.githubLink !== '#'
+      ? `<a href="${escapeHtml(proj.githubLink)}" target="_blank" class="btn btn-outline btn-sm" onclick="event.stopPropagation()">
+          <div class="github-icon" style="width:1em;height:1em;margin-right:5px;vertical-align:middle;">
+            <svg viewBox="0 0 98 96"><path class="github-octo-fill" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/></svg>
+          </div>GitHub</a>`
+      : '';
+
+    const adminBtns = isAdmin
+      ? `<div class="project-admin-actions">
+          <button class="edit-item-btn" onclick="event.stopPropagation();editProject(${i})" title="Edit"><i class="fas fa-pen"></i></button>
+          <button class="delete-item-btn" onclick="event.stopPropagation();deleteProject(${i})" title="Delete"><i class="fas fa-trash"></i></button>
+        </div>` : '';
+
     return `
-    <div class="project-card magic-card reveal-zoom" onclick="showProjectDetails(${i})" style="cursor:pointer;">
-      ${isAdmin ? `
-        <div class="project-admin-actions">
-          <button class="edit-item-btn" onclick="event.stopPropagation(); editProject(${i})" title="Edit"><i class="fas fa-pen"></i></button>
-          <button class="delete-item-btn" onclick="event.stopPropagation(); deleteProject(${i})" title="Delete"><i class="fas fa-trash"></i></button>
+    <div class="scroll-stack-card" style="background:${bg};" onclick="showProjectDetails(${i})">
+      ${adminBtns}
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;flex-wrap:wrap;">
+            <span class="project-status-badge status-${statusClass}" style="font-size:0.72rem;">${statusLabel}</span>
+            ${(proj.techStack || []).slice(0,4).map(t => `<span class="tech-tag" style="opacity:0.8;">${escapeHtml(t)}</span>`).join('')}
+          </div>
+          <h3 class="project-title" style="font-size:1.5rem;color:#fff;margin-bottom:0.6rem;">${escapeHtml(proj.title)}</h3>
+          <p class="project-desc" style="color:rgba(255,255,255,0.72);margin-bottom:1rem;line-height:1.6;">${escapeHtml(proj.description)}</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">${liveBtn}${ghBtn}</div>
         </div>
-      ` : ''}
-      <div class="folder-logo-container">
-        <svg class="folder-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path class="folder-body" d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-          <g class="file-doc">
-            <rect x="7" y="7" width="10" height="10" rx="1" />
-            <line class="doc-line" x1="10" y1="10" x2="14" y2="10" />
-            <line class="doc-line" x1="10" y1="13" x2="14" y2="13" />
-          </g>
-          <path class="folder-body" d="M2 10h20v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9z" />
-        </svg>
       </div>
-      <div class="project-title-row">
-        <h3 class="project-title">${escapeHtml(proj.title)}</h3>
-      </div>
-      <div style="margin-bottom: 12px;">
-        <span class="project-status-badge status-${statusClass}">${statusLabel}</span>
-      </div>
-      <p class="project-desc">${escapeHtml(proj.description)}</p>
-      <div class="project-tech">
-        ${proj.techStack.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}
-      </div>
-      <div class="project-links">
-        ${proj.liveLink ? (
-        proj.liveLink === '#' ?
-          `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); showToast('Link Unavailable', 'info')"><i class="fas fa-external-link-alt"></i> Live</button>` :
-          `<a href="${escapeHtml(proj.liveLink)}" target="_blank" class="btn btn-outline btn-sm" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Live</a>`
-      ) : ''}
-        ${proj.githubLink && proj.githubLink !== '#' ? `<a href="${escapeHtml(proj.githubLink)}" target="_blank" class="btn btn-outline btn-sm" onclick="event.stopPropagation()">
-          <div class="github-icon" style="width: 1em; height: 1em; margin-right: 5px; vertical-align: middle;">
-            <svg viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg"><path class="github-octo-fill" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/></svg>
-          </div>GitHub</a>` : ''}
-      </div>
-    </div>
-  `}).join('');
+    </div>`;
+  }).join('');
+
+  setTimeout(initScrollStack, 100);
 }
+
 
 function showProjectDetails(index) {
   const proj = siteContent.projects[index];

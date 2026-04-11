@@ -2462,3 +2462,209 @@ a:hover .env-body { stroke: var(--accent); }
     display: none;
   }
 }
+
+/* ------------------------------------------
+   SCROLL STACK (Projects)
+   ------------------------------------------ */
+.scroll-stack-outer {
+  position: relative;
+}
+
+.scroll-stack-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.scroll-stack-card {
+  position: sticky;
+  top: 90px;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  transition: brightness 0.3s ease;
+  cursor: pointer;
+  will-change: transform;
+  transform-origin: top center;
+}
+
+.scroll-stack-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(var(--accent-rgb), 0.15);
+}
+
+/* ------------------------------------------
+   STEPPER (Contact Form)
+   ------------------------------------------ */
+.stepper {
+  padding: 1.5rem;
+}
+
+.stepper-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 0;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  position: relative;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.step-check { display: none; }
+
+.step-indicator.active .step-circle {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.step-indicator.completed .step-circle {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.step-indicator.completed .step-number { display: none; }
+.step-indicator.completed .step-check { display: block; }
+
+.step-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.step-indicator.active .step-label { color: var(--accent); }
+
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--border-light);
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+
+.step-connector.active { background: var(--accent); }
+
+.stepper-slides {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.step-panel {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-panel.active { display: flex; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideBack {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.step-panel.slide-back { animation: slideBack 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.step-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.step-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem;
+}
+
+.step-input-group {
+  position: relative;
+}
+
+.step-input {
+  width: 100%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.step-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.step-textarea { resize: vertical; min-height: 100px; }
+
+.input-underline {
+  height: 2px;
+  background: var(--accent);
+  width: 0;
+  transition: width 0.3s ease;
+  margin-top: -1px;
+}
+
+.step-input:focus ~ .input-underline { width: 100%; }
+
+.step-next-btn { align-self: flex-end; }
+
+.step-btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.step-success {
+  text-align: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: #22c55e;
+  margin-bottom: 0.5rem;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

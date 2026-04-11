@@ -162,8 +162,10 @@
     <div class="container">
       <h2 class="section-title reveal-up">Projects</h2>
       <div class="section-line reveal-up"></div>
-      <div class="projects-grid" id="projectsGrid">
-        <!-- Populated by JS -->
+      <div class="scroll-stack-outer" id="scrollStackOuter">
+        <div class="scroll-stack-inner" id="projectsGrid">
+          <!-- Populated by JS -->
+        </div>
       </div>
       <button class="btn btn-outline add-btn admin-only" id="addProjectBtn" style="display:none;">
         <i class="fas fa-plus"></i> Add Project
@@ -269,18 +271,66 @@
           </div>
         </div>
         <div class="contact-form-wrapper magic-card reveal-right">
-          <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <input type="text" id="formName" placeholder="Your Name" required>
+          <!-- 3-STEP STEPPER -->
+          <div class="stepper" id="contactStepper">
+            <div class="stepper-header">
+              <div class="step-indicator active" data-step="1">
+                <div class="step-circle"><span class="step-number">1</span><i class="fas fa-check step-check"></i></div>
+                <span class="step-label">Name</span>
+              </div>
+              <div class="step-connector"></div>
+              <div class="step-indicator" data-step="2">
+                <div class="step-circle"><span class="step-number">2</span><i class="fas fa-check step-check"></i></div>
+                <span class="step-label">Email</span>
+              </div>
+              <div class="step-connector"></div>
+              <div class="step-indicator" data-step="3">
+                <div class="step-circle"><span class="step-number">3</span><i class="fas fa-check step-check"></i></div>
+                <span class="step-label">Message</span>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="email" id="formEmail" placeholder="Your Email" required>
+            <div class="stepper-slides">
+              <div class="step-panel active" data-panel="1">
+                <h3 class="step-title">What's your name?</h3>
+                <p class="step-subtitle">Let me know who I'm speaking with.</p>
+                <div class="step-input-group">
+                  <input type="text" id="formName" class="step-input" placeholder="Your full name" autocomplete="name">
+                  <div class="input-underline"></div>
+                </div>
+                <button class="btn btn-primary step-next-btn" onclick="stepperNext(1)">Continue <i class="fas fa-arrow-right"></i></button>
+              </div>
+              <div class="step-panel" data-panel="2">
+                <h3 class="step-title">Your email address?</h3>
+                <p class="step-subtitle">I'll use this to reply back to you.</p>
+                <div class="step-input-group">
+                  <input type="email" id="formEmail" class="step-input" placeholder="you@example.com" autocomplete="email">
+                  <div class="input-underline"></div>
+                </div>
+                <div class="step-btn-row">
+                  <button class="btn btn-outline" onclick="stepperBack(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                  <button class="btn btn-primary" onclick="stepperNext(2)">Continue <i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+              <div class="step-panel" data-panel="3">
+                <h3 class="step-title">Your message</h3>
+                <p class="step-subtitle">Tell me what's on your mind.</p>
+                <div class="step-input-group">
+                  <textarea id="formMessage" class="step-input step-textarea" placeholder="Write your message here..." rows="4"></textarea>
+                  <div class="input-underline"></div>
+                </div>
+                <div class="step-btn-row">
+                  <button class="btn btn-outline" onclick="stepperBack(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                  <button class="btn btn-primary" id="stepSubmit" onclick="stepperSubmit()"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </div>
+              </div>
+              <div class="step-panel step-success" data-panel="success">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h3 class="step-title">Message Sent!</h3>
+                <p class="step-subtitle">Thanks for reaching out. I'll get back to you soon.</p>
+                <button class="btn btn-outline" onclick="stepperReset()">Send Another</button>
+              </div>
             </div>
-            <div class="form-group">
-              <textarea id="formMessage" placeholder="Your Message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -389,9 +439,11 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="js/dock.js"></script>
-  <script src="js/app.js?v=9"></script>
+  <script src="js/app.js?v=10"></script>
   <script src="js/bento.js?v=9"></script>
+  <script src="js/scroll-stepper.js?v=1"></script>
 </body>
 
 </html>
