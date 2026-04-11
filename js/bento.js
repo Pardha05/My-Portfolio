@@ -25,19 +25,18 @@ window.initMagicBento = function () {
         fadeDistance: 200
     };
 
-    const updateGlobalEffects = (e) => {
-        let isAnyCardNear = false;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
+    // ── Device-Specific Glow Update ──
+    const updateGlow = (clientX, clientY) => {
+        let isAnyCardNear = false;
         cards.forEach(card => {
             const rect = card.getBoundingClientRect();
-
-            // Optimization: check if card is on screen
             if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-
-            const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY) - Math.max(rect.width, rect.height) / 2;
+            const distance = Math.hypot(clientX - centerX, clientY - centerY) - Math.max(rect.width, rect.height) / 2;
             const effectiveDistance = Math.max(0, distance);
 
             let intensity = 0;
@@ -49,32 +48,35 @@ window.initMagicBento = function () {
                 isAnyCardNear = true;
             }
 
-            // Update Card CSS Variables
-            const relX = ((e.clientX - rect.left) / rect.width) * 100;
-            const relY = ((e.clientY - rect.top) / rect.height) * 100;
-
+            const relX = ((clientX - rect.left) / rect.width) * 100;
+            const relY = ((clientY - rect.top) / rect.height) * 100;
             card.style.setProperty('--magic-glow-x', `${relX}%`);
             card.style.setProperty('--magic-glow-y', `${relY}%`);
             card.style.setProperty('--magic-glow-intensity', intensity);
         });
 
         if (isAnyCardNear) {
-            gsap.to(spotlight, {
-                left: e.clientX,
-                top: e.clientY,
-                opacity: 0.8,
-                duration: 0.2,
-                ease: 'power2.out'
-            });
+            gsap.to(spotlight, { left: clientX, top: clientY, opacity: 0.8, duration: 0.2, ease: 'power2.out' });
         } else {
             gsap.to(spotlight, { opacity: 0, duration: 0.5 });
         }
     };
 
-    // Remove existing listener to avoid clones on re-init
-    window.removeEventListener('mousemove', window._magicMoveHandler);
-    window._magicMoveHandler = updateGlobalEffects;
-    window.addEventListener('mousemove', window._magicMoveHandler);
+    if (isMobile) {
+        // AUTOMATIC SCROLL TRIGGERS FOR MOBILE
+        window.addEventListener('scroll', () => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            updateGlow(centerX, centerY);
+        });
+        // Initial run
+        setTimeout(() => updateGlow(window.innerWidth / 2, window.innerHeight / 2), 500);
+    } else {
+        // HOVER TRIGGERS FOR PC
+        window.removeEventListener('mousemove', window._magicMoveHandler);
+        window._magicMoveHandler = (e) => updateGlow(e.clientX, e.clientY);
+        window.addEventListener('mousemove', window._magicMoveHandler);
+    }
 
     // ── Card Effects: Tilt, Magnetism, Particles ──
     cards.forEach(card => {

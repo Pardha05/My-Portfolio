@@ -595,15 +595,38 @@ function initContactForm() {
 }
 
 function initScrollReveal() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-zoom, .reveal-rotate');
+
+  if (isMobile) {
+    // MOBILE: Automatic on Scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(el => observer.observe(el));
+  } else {
+    // PC: Animation ONLY on Cursor Movement
+    revealElements.forEach(el => {
+      // We listen for mousemove on the parent section to "reveal" its children
+      const section = el.closest('section') || el.parentElement;
+      if (section) {
+        section.addEventListener('mousemove', () => {
+          el.classList.add('revealed');
+        }, { once: true });
+      } else {
+        // Fallback for elements not in sections
+        el.addEventListener('mousemove', () => {
+          el.classList.add('revealed');
+        }, { once: true });
       }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-zoom, .reveal-rotate').forEach(el => observer.observe(el));
+  }
 }
 
 function escapeHtml(str) {

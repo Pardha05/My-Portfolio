@@ -39,25 +39,27 @@
 }
 
 /* -- Light Theme Variables -- */
-:root.light-theme {
-  --bg-primary: #f8f9fa;
+body.light-theme {
+  --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: #f1f3f5;
+  --bg-card-hover: #eef2f6;
   --bg-elevated: #ffffff;
   --bg-input: #ffffff;
+  --bg-tertiary: #f0f3f8;
 
-  --text-primary: #1a1a1a;
-  --text-secondary: #495057;
-  --text-muted: #868e96;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
 
-  --accent: #4a6a8a;
-  --accent-hover: #3d5a7a;
-  --accent-muted: #d0d7de;
-  --accent-purple: #745fb5;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-muted: #dbeafe;
+  --accent-purple: #7c3aed;
+  --accent-purple-hover: #6d28d9;
 
-  --border: #dee2e6;
-  --border-light: #e9ecef;
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
 
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -238,11 +240,18 @@ img {
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 10, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   padding: 10px 0;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
 }
 
 .nav-container {
@@ -256,10 +265,18 @@ img {
 
 .nav-logo {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text-primary) !important;
   letter-spacing: -0.5px;
+  z-index: 1001;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1001;
 }
 
 .nav-links {
@@ -1928,11 +1945,12 @@ body.admin-mode .admin-only {
 
 @media (max-width: 768px) {
   .magic-dock-wrapper {
-    display: flex;
+    display: none !important;
   }
 
   .navbar {
-    display: none !important;
+    display: block !important;
+    background: var(--bg-secondary) !important;
   }
 }
 
@@ -2076,6 +2094,26 @@ body.admin-mode .admin-only {
 .dev-link:hover .text {
   color: var(--text-primary);
   letter-spacing: 1.5px;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Override for Skill Card Icons - Trigger on entire card hover */
