@@ -135,7 +135,8 @@ function startParticles(card, addFn) {
             const rect = card.getBoundingClientRect();
             const p = document.createElement('div');
             p.className = 'particle';
-            p.style.background = 'rgba(107, 138, 173, 0.8)'; // Match var(--accent) #6b8aad
+            p.style.background = 'var(--accent)';
+            p.style.opacity = '0.6';
             p.style.left = `${Math.random() * rect.width}px`;
             p.style.top = `${Math.random() * rect.height}px`;
             card.appendChild(p);

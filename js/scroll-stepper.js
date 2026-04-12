@@ -34,6 +34,8 @@ function initLenis() {
    - blurAmount = 0
    ══════════════════════════════════════════ */
 var _ssCards = [];
+var _ssBaseOffsets = [];
+var _ssEndOffset = 0;
 var _ssLastTransforms = {};
 var _ssIsUpdating = false;
 
@@ -62,38 +64,48 @@ function updateScrollStack() {
   var scrollTop = window.scrollY;
   var containerHeight = window.innerHeight;
 
-  var itemScale        = 0.03;
-  var itemStackDistance = 30;
-  var baseScale        = 0.85;
-  var stackPositionPx  = _ssParsePercentage('20%', containerHeight);   // 20vh from top
-  var scaleEndPx       = _ssParsePercentage('10%', containerHeight);   // 10vh from top
+  var itemScale         = 0.03;
+  var itemStackDistance  = 30;
+  var baseScale         = 0.85;
+  var stackPositionPx   = _ssParsePercentage('20%', containerHeight);
+  var scaleEndPx        = _ssParsePercentage('10%', containerHeight);
+  var rotationAmount    = 0; // Lock to 0 to prevent "bending"
+  var blurAmount        = 0; // Lock to 0 for performance/clarity
 
-  var endEl = document.querySelector('.scroll-stack-end');
-  var endElTop = endEl ? _ssGetElementOffset(endEl) : 0;
+  // Find top-most card in stack (using cached offsets)
+  var topCardIndex = 0;
+  for (var j = 0; j < _ssCards.length; j++) {
+    var jTriggerStart = _ssBaseOffsets[j] - stackPositionPx - itemStackDistance * j;
+    if (scrollTop >= jTriggerStart) {
+      topCardIndex = j;
+    }
+  }
 
   for (var i = 0; i < _ssCards.length; i++) {
     var card = _ssCards[i];
-    if (!card) continue;
+    var cardBaseTop = _ssBaseOffsets[i];
 
-    var cardTop = _ssGetElementOffset(card);
-
-    var triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
-    var triggerEnd   = cardTop - scaleEndPx;
-    var pinStart     = cardTop - stackPositionPx - itemStackDistance * i;
-    var pinEnd       = endElTop - containerHeight / 2;
+    var triggerStart = cardBaseTop - stackPositionPx - itemStackDistance * i;
+    var triggerEnd   = cardBaseTop - scaleEndPx;
+    var pinStart     = cardBaseTop - stackPositionPx - itemStackDistance * i;
+    var pinEnd       = _ssEndOffset - containerHeight / 2;
 
     var scaleProgress = _ssCalcProgress(scrollTop, triggerStart, triggerEnd);
     var targetScale   = baseScale + i * itemScale;
     var scale         = 1 - scaleProgress * (1 - targetScale);
+    
+    var rotation = 0;
+    var blur     = 0;
 
     var translateY = 0;
     if (scrollTop >= pinStart && scrollTop <= pinEnd) {
-      translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * i;
+      translateY = scrollTop - cardBaseTop + stackPositionPx + itemStackDistance * i;
     } else if (scrollTop > pinEnd) {
-      translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
+      translateY = pinEnd - cardBaseTop + stackPositionPx + itemStackDistance * i;
     }
 
-    translateY = Math.round(translateY * 100) / 100;
+    // Clean decimals for performance
+    translateY = Math.round(translateY * 10) / 10;
     scale      = Math.round(scale * 1000) / 1000;
 
     var last = _ssLastTransforms[i];
@@ -115,37 +127,58 @@ function initScrollStack() {
   if (!cards.length) return;
 
   _ssCards = Array.prototype.slice.call(cards);
+  _ssBaseOffsets = [];
   _ssLastTransforms = {};
   _ssIsUpdating = false;
 
-  var itemDistance = 100; // px margin between cards
+  var itemDistance = 24; // px margin between cards
 
+  // Measurement Phase
   _ssCards.forEach(function(card, i) {
-    // Add gap between cards (not after last)
+    // Temporarily reset transform to measure true documentary position
+    card.style.transform = 'none';
+    _ssBaseOffsets[i] = _ssGetElementOffset(card);
+
+    // Add gap between cards
     if (i < _ssCards.length - 1) {
       card.style.marginBottom = itemDistance + 'px';
     } else {
       card.style.marginBottom = '0';
     }
-    card.style.willChange      = 'transform, filter';
+    card.style.willChange      = 'transform';
     card.style.transformOrigin = 'top center';
-    card.style.backfaceVisibility = 'hidden';
-    card.style.transform       = 'translateZ(0)';
+    card.style.transform       = 'translate3d(0, 0, 0)';
   });
 
-  // Ensure scroll-stack-end marker exists inside the inner wrapper
+  // Measure end marker
   var inner = document.getElementById('projectsGrid');
   if (inner) {
-    var existing = inner.querySelector('.scroll-stack-end');
-    if (!existing) {
-      var marker = document.createElement('div');
+    var marker = inner.querySelector('.scroll-stack-end');
+    if (!marker) {
+      marker = document.createElement('div');
       marker.className = 'scroll-stack-end';
       inner.appendChild(marker);
     }
+    // Measure marker static pos
+    marker.style.transform = 'none';
+    _ssEndOffset = _ssGetElementOffset(marker);
   }
 
-  // Wire window scroll (in addition to Lenis which also fires updateScrollStack)
-  window.removeEventListener('scroll', updateScrollStack);
+  // Bind resize to re-cache
+  window.addEventListener('resize', function() {
+    _ssCards.forEach(function(card, i) {
+      card.style.transform = 'none';
+      _ssBaseOffsets[i] = _ssGetElementOffset(card);
+    });
+    var marker = document.querySelector('.scroll-stack-end');
+    if (marker) {
+      marker.style.transform = 'none';
+      _ssEndOffset = _ssGetElementOffset(marker);
+    }
+    updateScrollStack();
+  }, { passive: true });
+
+  // Wire window scroll
   window.addEventListener('scroll', function() {
     requestAnimationFrame(updateScrollStack);
   }, { passive: true });

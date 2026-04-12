@@ -118,10 +118,8 @@ function renderProjects() {
   if (!grid || !siteContent.projects) return;
 
   const isAdmin = document.body.classList.contains('admin-mode');
-  const bgColors = ['#0f172a','#1e1b4b','#064e3b','#1e3a5f','#3b0764','#14532d'];
 
   grid.innerHTML = siteContent.projects.map((proj, i) => {
-    const bg = bgColors[i % bgColors.length];
     const statusLabels = { 'completed': 'Completed', 'in-progress': 'In Progress', 'future': 'Future' };
     const statusClass = proj.status || 'completed';
     const statusLabel = statusLabels[statusClass] || 'Completed';
@@ -144,7 +142,7 @@ function renderProjects() {
         </div>` : '';
 
     return `
-    <div class="scroll-stack-card" style="background:${bg};" onclick="showProjectDetails(${i})">
+    <div class="scroll-stack-card" onclick="showProjectDetails(${i})">
       ${adminBtns}
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
         <div style="flex:1;min-width:200px;">
@@ -152,8 +150,8 @@ function renderProjects() {
             <span class="project-status-badge status-${statusClass}" style="font-size:0.72rem;">${statusLabel}</span>
             ${(proj.techStack || []).slice(0,4).map(t => `<span class="tech-tag" style="opacity:0.8;">${escapeHtml(t)}</span>`).join('')}
           </div>
-          <h3 class="project-title" style="font-size:1.5rem;color:#fff;margin-bottom:0.6rem;">${escapeHtml(proj.title)}</h3>
-          <p class="project-desc" style="color:rgba(255,255,255,0.72);margin-bottom:1rem;line-height:1.6;">${escapeHtml(proj.description)}</p>
+          <h3 class="project-title" style="font-size:1.5rem;margin-bottom:0.6rem;">${escapeHtml(proj.title)}</h3>
+          <p class="project-desc" style="margin-bottom:1rem;line-height:1.6;">${escapeHtml(proj.description)}</p>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">${liveBtn}${ghBtn}</div>
         </div>
       </div>
@@ -458,17 +456,18 @@ function initNavbar() {
     });
   });
 
-  // ── Theme toggle ──
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon   = document.getElementById('themeIcon');
+  // ── Theme toggle (Custom Switch) ──
+  const themeToggle = document.getElementById('themeToggleCheckbox');
 
   // Apply saved theme on load
   const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (themeToggle) {
+    themeToggle.checked = (savedTheme === 'light');
+  }
   applyTheme(savedTheme);
 
-  themeToggle && themeToggle.addEventListener('click', () => {
-    const current = document.body.classList.contains('light-theme') ? 'light' : 'dark';
-    const next    = current === 'dark' ? 'light' : 'dark';
+  themeToggle && themeToggle.addEventListener('change', () => {
+    const next = themeToggle.checked ? 'light' : 'dark';
     applyTheme(next);
     localStorage.setItem('theme', next);
   });
@@ -477,11 +476,9 @@ function initNavbar() {
     if (theme === 'light') {
       document.body.classList.add('light-theme');
       document.body.classList.remove('dark-theme');
-      if (themeIcon) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); }
     } else {
       document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
-      if (themeIcon) { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); }
     }
   }
 }
