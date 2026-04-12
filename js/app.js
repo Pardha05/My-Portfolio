@@ -751,8 +751,11 @@ function initDraggablePill() {
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
 
-    // Lock body scroll on mobile
+    // Lock background scroll (Native + Lenis)
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    if (window._lenis) window._lenis.stop();
   }
 
   function drag(e) {
@@ -793,8 +796,11 @@ function initDraggablePill() {
     document.removeEventListener('mouseup', endDrag);
     document.removeEventListener('touchend', endDrag);
 
-    // Restore body scroll
+    // Restore background scroll (Native + Lenis)
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    if (window._lenis) window._lenis.start();
 
     // Save position
     const rect = pill.getBoundingClientRect();

@@ -2603,7 +2603,7 @@ body.light-theme .plane-switch {
   align-items: center;
   cursor: grab;
   user-select: none;
-  touch-action: none;
+  touch-action: none !important;
   gap: 15px;
   background: var(--bg-secondary);
   padding: 15px 10px;
