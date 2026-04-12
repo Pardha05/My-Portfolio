@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroCanvas();
   initScrollReveal();
   initLenis();
+  initDraggablePill();
   console.log('Portfolio App v10 Loaded');
 
   fetch('data/content.json?v=' + new Date().getTime())
@@ -711,4 +712,104 @@ function showToast(message, type = 'info') {
       }
     }, 300);
   }, 3000);
+}
+
+function initDraggablePill() {
+  const pill = document.querySelector('.social-pill-nav');
+  if (!pill) return;
+
+  let isDragging = false;
+  let startX, startY;
+  let hasMoved = false;
+
+  // Load saved position
+  const savedPos = localStorage.getItem('pillPosition');
+  if (savedPos) {
+    try {
+      const pos = JSON.parse(savedPos);
+      applyPosition(pos.x, pos.y);
+    } catch(e) { console.error('Pill pos error', e); }
+  }
+
+  pill.addEventListener('mousedown', startDrag);
+  pill.addEventListener('touchstart', startDrag, { passive: false });
+
+  function startDrag(e) {
+    isDragging = true;
+    hasMoved = false;
+    pill.classList.add('dragging');
+
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+    const rect = pill.getBoundingClientRect();
+    startX = clientX - rect.left;
+    startY = clientY - rect.top;
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    if (e.cancelable) e.preventDefault();
+    
+    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+    // Small threshold to distinguish drag from click
+    const rectNow = pill.getBoundingClientRect();
+    if (Math.abs(clientX - (rectNow.left + startX)) > 5 || Math.abs(clientY - (rectNow.top + startY)) > 5) {
+      hasMoved = true;
+    }
+
+    let x = clientX - startX;
+    let y = clientY - startY;
+
+    // Viewport Boundaries
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const pWidth = pill.offsetWidth;
+    const pHeight = pill.offsetHeight;
+
+    x = Math.max(0, Math.min(x, w - pWidth));
+    y = Math.max(0, Math.min(y, h - pHeight));
+
+    applyPosition(x, y);
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    pill.classList.remove('dragging');
+
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('touchmove', drag);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchend', endDrag);
+
+    // Save position
+    const rect = pill.getBoundingClientRect();
+    localStorage.setItem('pillPosition', JSON.stringify({ x: rect.left, y: rect.top }));
+  }
+
+  function applyPosition(x, y) {
+    pill.style.left = x + 'px';
+    pill.style.top = y + 'px';
+    pill.style.bottom = 'auto';
+    pill.style.right = 'auto';
+    pill.style.transform = 'none';
+  }
+
+  // Prevent following links IF we were dragging
+  pill.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (hasMoved) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    }, true);
+  });
 }
