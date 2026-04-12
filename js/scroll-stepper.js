@@ -64,13 +64,14 @@ function updateScrollStack() {
   var scrollTop = window.scrollY;
   var containerHeight = window.innerHeight;
 
+  var isMobile = window.innerWidth <= 768;
   var itemScale         = 0.03;
-  var itemStackDistance  = 30;
+  var itemStackDistance  = isMobile ? 15 : 30;
   var baseScale         = 0.85;
-  var stackPositionPx   = _ssParsePercentage('20%', containerHeight);
-  var scaleEndPx        = _ssParsePercentage('10%', containerHeight);
-  var rotationAmount    = 0; // Lock to 0 to prevent "bending"
-  var blurAmount        = 0; // Lock to 0 for performance/clarity
+  var stackPositionPx   = _ssParsePercentage(isMobile ? '10%' : '20%', containerHeight);
+  var scaleEndPx        = _ssParsePercentage(isMobile ? '5%' : '10%', containerHeight);
+  var rotationAmount    = 0;
+  var blurAmount        = 0;
 
   // Find top-most card in stack (using cached offsets)
   var topCardIndex = 0;

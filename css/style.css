@@ -2720,6 +2720,15 @@ a:hover .env-body { stroke: var(--accent); }
   padding-bottom: 30rem;
 }
 
+@media (max-width: 768px) {
+  .scroll-stack-outer {
+    padding-top: 5vh;
+    padding-bottom: 20rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 .scroll-stack-inner {
   display: flex;
   flex-direction: column;
@@ -2742,6 +2751,14 @@ a:hover .env-body { stroke: var(--accent); }
   overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .scroll-stack-card {
+    min-height: 280px;
+    padding: 24px;
+    border-radius: 24px;
+  }
 }
 
 .scroll-stack-card .project-title {
