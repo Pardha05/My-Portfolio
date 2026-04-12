@@ -2139,6 +2139,7 @@ body.light-theme .plane-switch {
 
 .plane-switch input + div {
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
   position: relative;
   overflow: hidden;
   width: 50px;
