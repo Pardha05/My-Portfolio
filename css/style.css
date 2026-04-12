@@ -2699,7 +2699,10 @@ a:hover .env-body { stroke: var(--accent); }
 
 @media (max-width: 768px) {
   .social-pill-nav {
-    display: none;
+    left: 8px;
+    padding: 10px 8px;
+    gap: 10px;
+    transform: translateY(-50%) scale(0.85);
   }
 }
 
