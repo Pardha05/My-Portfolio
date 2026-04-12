@@ -750,6 +750,9 @@ function initDraggablePill() {
     document.addEventListener('touchmove', drag, { passive: false });
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
+
+    // Lock body scroll on mobile
+    document.body.style.overflow = 'hidden';
   }
 
   function drag(e) {
@@ -789,6 +792,9 @@ function initDraggablePill() {
     document.removeEventListener('touchmove', drag);
     document.removeEventListener('mouseup', endDrag);
     document.removeEventListener('touchend', endDrag);
+
+    // Restore body scroll
+    document.body.style.overflow = '';
 
     // Save position
     const rect = pill.getBoundingClientRect();
