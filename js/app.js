@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initDraggablePill();
   initIntroAnimation();
+  initMagicGlow();
   console.log('Portfolio App v10 Loaded');
 
   fetch('data/content.json?v=' + new Date().getTime())
@@ -654,6 +655,57 @@ function initIntroAnimation() {
   };
 
   setTimeout(finish, 2500);
+}
+
+function initMagicGlow() {
+  const root = document.documentElement;
+  
+  // Track global spotlight (Hero section)
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    
+    root.style.setProperty('--magic-glow-x', `${x}%`);
+    root.style.setProperty('--magic-glow-y', `${y}%`);
+    root.style.setProperty('--magic-glow-intensity', '1');
+  });
+
+  document.addEventListener('mouseleave', () => {
+    root.style.setProperty('--magic-glow-intensity', '0');
+  });
+
+  // Per-card tracking for border glows (About section, etc.)
+  const updateCardGlow = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    card.style.setProperty('--magic-glow-x', `${x}%`);
+    card.style.setProperty('--magic-glow-y', `${y}%`);
+    card.style.setProperty('--magic-glow-intensity', '1');
+  };
+
+  const resetCardGlow = (e) => {
+    e.currentTarget.style.setProperty('--magic-glow-intensity', '0');
+  };
+
+  // Attach to existing and future magic-cards
+  const attachGlowListeners = () => {
+    document.querySelectorAll('.magic-card').forEach(card => {
+      if (!card.dataset.glowInitialized) {
+        card.addEventListener('mousemove', updateCardGlow);
+        card.addEventListener('mouseleave', resetCardGlow);
+        card.dataset.glowInitialized = 'true';
+      }
+    });
+  };
+
+  attachGlowListeners();
+  
+  // Also watch for DOM changes (if admin adds sections)
+  const observer = new MutationObserver(attachGlowListeners);
+  observer.observe(document.body, { childList: true, subtree: true });
 }
 
 // ══════════════════════════════════════════
