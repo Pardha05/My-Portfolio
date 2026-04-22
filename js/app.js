@@ -280,18 +280,18 @@ function renderSkills() {
       </div>
     </div>`;
   }).join('');
-}
 
-  // Initial animation
+  // Initial animation for the new cards
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
 
-  grid.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+  grid.querySelectorAll('.skill-bento-card').forEach(card => observer.observe(card));
 }
 
 /**
