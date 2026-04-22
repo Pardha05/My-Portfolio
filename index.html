@@ -14,10 +14,26 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=101">
+  <link rel="stylesheet" href="css/style.css?v=102">
 </head>
 
 <body>
+
+  <!-- ═══ INTRO ANIMATION ═══ -->
+  <div id="intro-animation" class="intro-overlay">
+    <div class="marquee-container">
+      <div class="marquee-content">
+        <span id="marquee-text" class="marquee-text"></span>
+      </div>
+    </div>
+    <div class="welcome-pill-container">
+      <div class="welcome-pill">
+        <div class="pill-dot"></div>
+        <span class="pill-text">Welcome</span>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ═══ LEFT SOCIAL PILL NAV ═══ -->
   <div class="social-pill-nav">
@@ -79,6 +95,9 @@
     <canvas id="heroCanvas"></canvas>
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <div class="hero-image-frame">
+        <img id="heroProfileImg" src="assets/profile.png" alt="B.Pardha Sai" class="hero-profile-img">
+      </div>
       <p class="hero-greeting reveal-up">Hello, I'm</p>
       <h1 class="hero-name reveal-zoom" id="heroName">Your Name</h1>
       <p class="hero-title reveal-up" id="heroTitle">B.Tech CSE (AI & ML) Student | Aspiring Software Engineer</p>

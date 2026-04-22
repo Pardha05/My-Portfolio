@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initLenis();
   initDraggablePill();
+  initIntroAnimation();
   console.log('Portfolio App v10 Loaded');
 
   fetch('data/content.json?v=' + new Date().getTime())
@@ -474,12 +475,15 @@ function initNavbar() {
   });
 
   function applyTheme(theme) {
+    const profileImg = document.getElementById('heroProfileImg');
     if (theme === 'light') {
       document.body.classList.add('light-theme');
       document.body.classList.remove('dark-theme');
+      if (profileImg) profileImg.src = 'assets/profile-light.png';
     } else {
       document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
+      if (profileImg) profileImg.src = 'assets/profile.png';
     }
   }
 }
@@ -615,6 +619,32 @@ function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// ══════════════════════════════════════════
+// INTRO ANIMATION
+// ══════════════════════════════════════════
+function initIntroAnimation() {
+  const intro = document.getElementById('intro-animation');
+  const marqueeSpan = document.getElementById('marquee-text');
+  if (!intro || !marqueeSpan) return;
+
+  const words = '<span class="logo-bracket">&lt;</span>Portfolio <span class="logo-bracket">/&gt;</span>  •  ';
+  marqueeSpan.innerHTML = words.repeat(100);
+
+  // Prevent scrolling during animation
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    intro.classList.add('hidden');
+    document.body.style.overflow = '';
+    
+    // Re-trigger scroll reveal for hero elements after splash fades
+    setTimeout(() => {
+      const heroReveal = document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom');
+      heroReveal.forEach(el => el.classList.add('revealed'));
+    }, 500);
+  }, 2500);
 }
 
 // ══════════════════════════════════════════
