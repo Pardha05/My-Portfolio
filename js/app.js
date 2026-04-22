@@ -627,24 +627,33 @@ function escapeHtml(str) {
 function initIntroAnimation() {
   const intro = document.getElementById('intro-animation');
   const marqueeSpan = document.getElementById('marquee-text');
-  if (!intro || !marqueeSpan) return;
+  if (!intro) return;
 
-  const words = '<span class="logo-bracket">&lt;</span>Portfolio <span class="logo-bracket">/&gt;</span>  •  ';
-  marqueeSpan.innerHTML = words.repeat(100);
+  try {
+    if (marqueeSpan) {
+      const words = '<span class="logo-bracket">&lt;</span>Portfolio <span class="logo-bracket">/&gt;</span>  •  ';
+      marqueeSpan.innerHTML = words.repeat(40);
+    }
+  } catch (e) {
+    console.error('Marquee sync error:', e);
+  }
 
   // Prevent scrolling during animation
   document.body.style.overflow = 'hidden';
 
-  setTimeout(() => {
+  // Force reveal after 3 seconds no matter what
+  const finish = () => {
     intro.classList.add('hidden');
     document.body.style.overflow = '';
     
     // Re-trigger scroll reveal for hero elements after splash fades
     setTimeout(() => {
-      const heroReveal = document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom');
+      const heroReveal = document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom, .reveal-up, .reveal-zoom');
       heroReveal.forEach(el => el.classList.add('revealed'));
     }, 500);
-  }, 2500);
+  };
+
+  setTimeout(finish, 2500);
 }
 
 // ══════════════════════════════════════════
