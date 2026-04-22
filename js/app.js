@@ -145,7 +145,7 @@ function renderProjects() {
         </div>` : '';
 
     return `
-    <div class="scroll-stack-card" onclick="showProjectDetails(${i})">
+    <div class="scroll-stack-card magic-card" onclick="showProjectDetails(${i})">
       ${adminBtns}
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
         <div style="flex:1;min-width:200px;">
