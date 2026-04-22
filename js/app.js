@@ -235,121 +235,52 @@ function renderSkills() {
   const grid = document.getElementById('skillsGrid');
   if (!grid || !siteContent.skills) return;
 
-  const iconMap = {
-    code: 'fas fa-code',
-    globe: 'fas fa-globe',
-    cpu: 'fas fa-microchip',
-    tool: 'fas fa-wrench',
-    database: 'fas fa-database',
-    cloud: 'fas fa-cloud',
-    mobile: 'fas fa-mobile-alt',
-    lock: 'fas fa-lock',
-    dsa: 'fas fa-sitemap',
-    server: 'fas fa-server',
-    gym: 'fas fa-dumbbell',
-    dumble: 'fas fa-dumbbell',
-    Dumble: 'fas fa-dumbbell'
+  const skillIconMap = {
+    'python': 'fab fa-python',
+    'javascript': 'fab fa-js',
+    'typescript': 'fab fa-js',
+    'react': 'fab fa-react',
+    'node.js': 'fab fa-node-js',
+    'html': 'fab fa-html5',
+    'css': 'fab fa-css3-alt',
+    'git': 'fab fa-git-alt',
+    'docker': 'fab fa-docker',
+    'aws': 'fab fa-aws',
+    'java': 'fab fa-java',
+    'c++': 'fas fa-code',
+    'database': 'fas fa-database',
+    'mongodb': 'fas fa-leaf',
+    'postgresql': 'fas fa-database',
+    'sql': 'fas fa-database',
+    'firebase': 'fas fa-fire',
+    'figma': 'fab fa-figma',
+    'linux': 'fab fa-linux'
   };
 
-  grid.innerHTML = siteContent.skills.categories.map((cat, index) => `
-    <div class="skill-card magic-card ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}" data-skill-index="${index}">
-      <div class="skill-card-header" onclick="toggleSkillCategory(this)">
-        <div class="skill-card-header-left">
-          <div class="skill-card-icon">
-            ${(() => {
-              if (cat.name === 'Programming') {
-                return `
-                  <div class="dev-link skill-icon-animated">
-                    <div class="icon-container">
-                      <span class="bracket">&lt;</span>
-                      <span class="slash">/</span>
-                      <span class="bracket">&gt;</span>
-                    </div>
-                  </div>`;
-              } else if (cat.name === 'Web Development') {
-                return `
-                  <div class="logo-wrapper">
-                    <svg class="design-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <rect class="browser-frame" x="2" y="4" width="20" height="16" rx="2" />
-                      <line class="browser-frame" x1="2" y1="8" x2="22" y2="8" />
-                      <rect class="box box-top" x="5" y="11" width="7" height="5" rx="1" />
-                      <rect class="box box-bottom" x="10" y="14" width="7" height="5" rx="1" />
-                      <g class="pen">
-                        <path d="M17 7L19 5L21 7L19 9L17 7Z" />
-                        <path d="M13 11L17 7" />
-                      </g>
-                    </svg>
-                  </div>`;
-              } else if (cat.name === 'Databases') {
-                return `
-                  <div class="stack-logo-container">
-                    <svg class="stack-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path class="connector" d="M17 6v12h-2" />
-                      <rect class="node" x="14" y="2" width="6" height="5" rx="1.5" />
-                      <rect class="layer layer-1" x="4" y="6" width="10" height="3" rx="1" />
-                      <rect class="layer layer-2" x="4" y="11" width="10" height="3" rx="1" />
-                      <rect class="layer layer-3" x="4" y="16" width="10" height="3" rx="1" />
-                    </svg>
-                  </div>`;
-              } else if (cat.name === 'Tools') {
-                return `
-                  <div class="settings-logo-container">
-                    <svg class="settings-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path class="cog" d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                      <path class="cog" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
-                      <g class="wrench" stroke="currentColor">
-                        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a2.12 2.12 0 00-3-3L14.7 6.3z" />
-                        <path d="M14.1 7.2l-9.1 9.1a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l9.1-9.1" />
-                        <path d="M3.5 17.5a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3a2.12 2.12 0 00-3-3l-3 3z" />
-                      </g>
-                    </svg>
-                  </div>`;
-              } else if (cat.name === 'Development Approach') {
-                return `
-                  <div class="blocks-container">
-                    <svg class="blocks-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <g class="block block-b">
-                        <path class="face-left" d="M12 22l-4-2.3V15l4 2.3V22z" />
-                        <path class="face-right" d="M12 22l4-2.3V15l-4 2.3V22z" />
-                        <path class="face-top" d="M12 17.4l-4-2.3 4-2.3 4 2.3-4 2.3z" />
-                      </g>
-                      <g class="block block-tl">
-                        <path class="face-left" d="M8 14.7l-4-2.3V7.7l4 2.3v4.7z" />
-                        <path class="face-right" d="M8 14.7l4-2.3V7.7l-4 2.3v4.7z" />
-                        <path class="accent-face" d="M8 10l-4-2.3 4-2.3 4 2.3-4 2.3z" />
-                      </g>
-                      <g class="block block-tr">
-                        <path class="face-left" d="M16 14.7l-4-2.3V7.7l4 2.3v4.7z" />
-                        <path class="face-right" d="M16 14.7l4-2.3V7.7l-4 2.3v4.7z" />
-                        <path class="accent-face" d="M16 10l-4-2.3 4-2.3 4 2.3-4 2.3z" />
-                      </g>
-                    </svg>
-                  </div>`;
-              }
-              return `<i class="${iconMap[cat.icon] || 'fas fa-code'}"></i>`;
-            })()}
-          </div>
-          <h3 class="skill-card-title">${escapeHtml(cat.name)}</h3>
-        </div>
-        <div class="skill-card-chevron">
-          <i class="fas fa-chevron-down"></i>
-        </div>
-      </div>
-      <div class="skills-collapse">
-        <div class="skills-list">
-          ${cat.skills.map(skill => {
-    const levelClass = skill.level ? skill.level.toLowerCase() : 'intermediate';
+  grid.innerHTML = siteContent.skills.categories.map((cat, index) => {
+    const isWide = cat.name === 'Web Development' || cat.name === 'Programming' || cat.name === 'IT & Security';
+    const cardClass = `skill-bento-card ${isWide ? 'wide' : ''} ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}`;
+
     return `
-              <div class="skill-item">
-                <span class="skill-name">${escapeHtml(skill.name)}</span>
-                <span class="skill-level-badge level-${levelClass}">${escapeHtml(skill.level)}</span>
-              </div>
-            `;
-  }).join('')}
-        </div>
+    <div class="${cardClass}" data-skill-index="${index}">
+      <div class="skill-bento-header">
+        <div class="skill-bento-dot"></div>
+        <h3 class="skill-bento-title">${escapeHtml(cat.name)}</h3>
       </div>
-    </div>
-  `).join('');
+      <div class="skill-tags-container">
+        ${cat.skills.map(skill => {
+          const iconClass = skillIconMap[skill.name.toLowerCase()] || '';
+          const iconHtml = iconClass ? `<i class="${iconClass}"></i>` : '';
+          return `
+          <div class="skill-tag">
+            ${iconHtml}
+            <span class="skill-name">${escapeHtml(skill.name)}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
 
   // Initial animation
   const observer = new IntersectionObserver((entries) => {
@@ -653,6 +584,12 @@ function initIntroAnimation() {
       heroReveal.forEach(el => el.classList.add('revealed'));
     }, 500);
   };
+
+  const welcomePill = intro.querySelector('.welcome-pill');
+  if (welcomePill) {
+    welcomePill.addEventListener('click', finish);
+    welcomePill.style.cursor = 'pointer';
+  }
 
   setTimeout(finish, 2500);
 }

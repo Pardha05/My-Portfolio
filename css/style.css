@@ -891,133 +891,109 @@ body.light-theme .hero-profile-img {
 /* ══════════════════════════════════════════
    SKILLS SECTION
    ══════════════════════════════════════════ */
+/* ── Skills Bento Grid ── */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
 @media (max-width: 768px) {
   .skills-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 20px;
   }
 }
 
-.skill-card {
+.skill-bento-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 30px;
   transition: all var(--transition);
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
   overflow: hidden;
+  height: 100%;
 }
 
-.skill-card:hover {
-  background: var(--bg-card-hover);
+.skill-bento-card:hover {
   border-color: var(--border-light);
   transform: translateY(-4px);
   box-shadow: var(--shadow);
+  background: var(--bg-card-hover);
 }
 
-.skill-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 0;
-  transition: margin-bottom 0.3s ease;
-}
-
-.skill-card.active .skill-card-header {
-  margin-bottom: 20px;
-}
-
-.skill-card-header-left {
+.skill-bento-header {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.skill-card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--accent-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  font-size: 1rem;
+.skill-bento-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
 }
 
-.skill-card-title {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.skill-card-chevron {
+.skill-bento-title {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  color: var(--text-muted);
-  transition: transform 0.3s ease;
-}
-
-.skill-card.active .skill-card-chevron {
-  transform: rotate(180deg);
-  color: var(--accent);
-}
-
-.skills-collapse {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.skills-list {
-  padding-bottom: 4px;
-}
-
-.skill-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition);
-  border: 1px solid transparent;
-}
-
-.skill-item:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.05);
-  transform: translateX(4px);
-}
-
-.skill-item:last-child {
-  margin-bottom: 0;
-}
-
-.skill-name {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.skill-level-badge {
-  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
 }
 
-.level-advanced {
+.skill-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-tag:hover {
+  border-color: var(--accent);
   background: var(--accent-muted);
+  color: var(--text-primary);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(var(--accent-rgb), 0.1);
+}
+
+.skill-tag i {
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+/* Specific Tag Sizing for Dynamic Layout */
+.skill-bento-card.wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 1100px) {
+  .skill-bento-card.wide {
+    grid-column: span 1;
+  }
+}
   color: var(--accent);
   border: 1px solid var(--accent);
 }
