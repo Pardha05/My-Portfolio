@@ -1967,7 +1967,6 @@ body.admin-mode .admin-only {
     font-size: 0.75rem;
     padding: 15px;
     white-space: pre-wrap; /* Enable wrapping for long lines */
-    word-break: break-all;
   }
 
   .code-header {

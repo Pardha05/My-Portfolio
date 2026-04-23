@@ -114,11 +114,11 @@
   "projects": [
     {
       "title": "ServifyOne",
-      "description": "Transforming India's after-sales service experience through unified digital warranty management",
+      "description": "Architected a unified digital platform for digital warranty management; established as Nexra Technologies Private Limited (OPC).",
       "techStack": [
-        "React",
-        "Node.js",
-        "MongoDB"
+        "Next.js",
+        "Tailwind CSS",
+        "PostgreSQL"
       ],
       "liveLink": "https://servify-one.onrender.com/",
       "githubLink": "#",
@@ -172,15 +172,20 @@
   ],
   "achievements": [
     {
-      "type": "certification",
-      "title": "NISM Series V-A",
-      "description": "Preparing for Mutual Fund Distributors Certification."
+      "type": "competition",
+      "title": "2nd Position - Trade for Good",
+      "description": "National Level Trading Simulation organized by VIT-AP and StockGro (March 2025)."
     },
     {
-      "type": "competition",
-      "title": "AI Hackathon Participant",
-      "description": "Participated in a hackathon focused on AI solutions."
-    }
+      "type": "sports",
+      "title": "National Silver Medalist",
+      "description": "Awarded Silver in the National Taekwondo Championship."
+    },
+    {
+      "type": "certification",
+      "title": "NISM Series V-A",
+      "description": "Mutual Fund Distributors Certification (In Progress)."
+    },
   ],
   "hobbies": [
     {
