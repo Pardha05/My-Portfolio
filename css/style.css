@@ -1945,6 +1945,7 @@ body.admin-mode .admin-only {
 
   .about-visual {
     order: -1;
+    margin-bottom: 20px;
   }
 
   .contact-grid {
@@ -1953,6 +1954,33 @@ body.admin-mode .admin-only {
 
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile-specific optimizations for the code block */
+@media (max-width: 480px) {
+  .code-block {
+    margin: 0 -10px; /* Slight bleed for better width usage */
+  }
+
+  .code-content {
+    font-size: 0.75rem;
+    padding: 15px;
+    white-space: pre-wrap; /* Enable wrapping for long lines */
+    word-break: break-all;
+  }
+
+  .code-header {
+    padding: 10px 12px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .code-filename {
+    font-size: 0.65rem;
   }
 }
 
