@@ -88,6 +88,8 @@ window.initMagicBento = function () {
 
         // TILT & MAGNETISM
         card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth <= 768 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0) return;
+            
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -113,11 +115,13 @@ window.initMagicBento = function () {
         });
 
         card.addEventListener('mouseleave', () => {
+            if (window.innerWidth <= 768 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0) return;
             gsap.to(card, { rotateX: 0, rotateY: 0, x: 0, y: 0, duration: 0.5 });
             stopParticles(card, particles);
         });
 
         card.addEventListener('mouseenter', () => {
+            if (window.innerWidth <= 768 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0) return;
             startParticles(card, (p) => particles.push(p));
         });
 
