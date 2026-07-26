@@ -7,7 +7,7 @@ function initLenis() {
     duration: 1.2,
     easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
     smoothWheel: true,
-    touchMultiplier: 2,
+    touchMultiplier: 1,
     infinite: false,
     wheelMultiplier: 1,
     lerp: 0.1,
