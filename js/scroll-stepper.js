@@ -11,8 +11,7 @@ function initLenis() {
     infinite: false,
     wheelMultiplier: 1,
     lerp: 0.1,
-    syncTouch: true,
-    syncTouchLerp: 0.075
+    smoothTouch: false
   });
   window._lenis = lenis;
   function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }

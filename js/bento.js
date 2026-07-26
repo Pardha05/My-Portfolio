@@ -63,14 +63,12 @@ window.initMagicBento = function () {
     };
 
     if (isMobile) {
-        // AUTOMATIC SCROLL TRIGGERS FOR MOBILE
-        window.addEventListener('scroll', () => {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            updateGlow(centerX, centerY);
+        // STATIC GLOW FOR MOBILE (No scroll listeners to prevent layout thrashing)
+        cards.forEach(card => {
+            card.style.setProperty('--magic-glow-x', `50%`);
+            card.style.setProperty('--magic-glow-y', `50%`);
+            card.style.setProperty('--magic-glow-intensity', '0.4');
         });
-        // Initial run
-        setTimeout(() => updateGlow(window.innerWidth / 2, window.innerHeight / 2), 500);
     } else {
         // HOVER TRIGGERS FOR PC
         window.removeEventListener('mousemove', window._magicMoveHandler);
