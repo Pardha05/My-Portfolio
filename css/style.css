@@ -2935,10 +2935,16 @@ a:hover .env-body { stroke: var(--accent); }
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   cursor: pointer;
-  transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  /* No 'transform' in transition — JS lerp drives transform every frame */
+  transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border);
+  /* GPU-layer isolation — each card composites independently */
+  will-change: transform;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @media (max-width: 768px) {
@@ -2966,7 +2972,7 @@ a:hover .env-body { stroke: var(--accent); }
 
 .scroll-stack-card:hover {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-  transform: translateY(-4px);
+  /* Don't override transform here — JS controls it for the scroll-stack effect */
   border-color: var(--accent);
 }
 

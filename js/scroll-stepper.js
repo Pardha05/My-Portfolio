@@ -15,112 +15,111 @@ function initLenis() {
     syncTouchLerp: 0.075
   });
   window._lenis = lenis;
-  lenis.on('scroll', function() { updateScrollStack(); });
   function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
   requestAnimationFrame(raf);
 }
 
 /* ══════════════════════════════════════════
    SCROLL STACK ENGINE
-   Ported from the React ScrollStack component
-   - useWindowScroll = true
-   - itemDistance = 100px
-   - itemScale = 0.03
-   - itemStackDistance = 30
-   - stackPosition = '20%'
-   - scaleEndPosition = '10%'
-   - baseScale = 0.85
-   - rotationAmount = 0
-   - blurAmount = 0
+   ══════════════════════════════════════════
+   Simple approach: Lenis already smooths
+   scrollY, so we just read it every frame
+   and apply transforms directly. No extra
+   lerp or event listeners needed.
    ══════════════════════════════════════════ */
 var _ssCards = [];
 var _ssBaseOffsets = [];
 var _ssEndOffset = 0;
-var _ssLastTransforms = {};
-var _ssIsUpdating = false;
+var _ssLastY = [];
+var _ssLastS = [];
+var _ssActive = false;
+var _ssResizeTimer = null;
 
-function _ssParsePercentage(value, containerHeight) {
-  if (typeof value === 'string' && value.indexOf('%') !== -1) {
-    return (parseFloat(value) / 100) * containerHeight;
-  }
+function _ssPct(value, h) {
+  if (typeof value === 'string' && value.indexOf('%') !== -1)
+    return (parseFloat(value) / 100) * h;
   return parseFloat(value);
 }
 
-function _ssCalcProgress(scrollTop, start, end) {
-  if (scrollTop < start) return 0;
-  if (scrollTop > end) return 1;
-  return (scrollTop - start) / (end - start);
+function _ssOffset(el) {
+  return el.getBoundingClientRect().top + window.scrollY;
 }
 
-function _ssGetElementOffset(el) {
-  var rect = el.getBoundingClientRect();
-  return rect.top + window.scrollY;
-}
-
-function updateScrollStack() {
-  if (!_ssCards.length || _ssIsUpdating) return;
-  _ssIsUpdating = true;
-
+function _ssUpdate() {
   var scrollTop = window.scrollY;
-  var containerHeight = window.innerHeight;
+  var vh = window.innerHeight;
+  var mob = window.innerWidth <= 768;
+  var stackDist = mob ? 15 : 30;
+  var stackPos = _ssPct(mob ? '10%' : '20%', vh);
+  var scaleEnd = _ssPct(mob ? '5%' : '10%', vh);
 
-  var isMobile = window.innerWidth <= 768;
-  var itemScale         = 0.03;
-  var itemStackDistance  = isMobile ? 15 : 30;
-  var baseScale         = 0.85;
-  var stackPositionPx   = _ssParsePercentage(isMobile ? '10%' : '20%', containerHeight);
-  var scaleEndPx        = _ssParsePercentage(isMobile ? '5%' : '10%', containerHeight);
-  var rotationAmount    = 0;
-  var blurAmount        = 0;
-
-  // Find top-most card in stack (using cached offsets)
-  var topCardIndex = 0;
-  for (var j = 0; j < _ssCards.length; j++) {
-    var jTriggerStart = _ssBaseOffsets[j] - stackPositionPx - itemStackDistance * j;
-    if (scrollTop >= jTriggerStart) {
-      topCardIndex = j;
+  // Find the currently active (front-most) card
+  var activeIndex = 0;
+  for (var i = 0; i < _ssCards.length; i++) {
+    var pinStart = _ssBaseOffsets[i] - stackPos - stackDist * i;
+    // We add a tiny buffer (10px) so it becomes active just as it reaches the stack
+    if (scrollTop >= pinStart - 10) {
+      activeIndex = i;
     }
   }
 
   for (var i = 0; i < _ssCards.length; i++) {
-    var card = _ssCards[i];
-    var cardBaseTop = _ssBaseOffsets[i];
+    var base = _ssBaseOffsets[i];
+    var pinStart = base - stackPos - stackDist * i;
+    var pinEnd = _ssEndOffset - vh / 2;
+    var trigEnd = base - scaleEnd;
 
-    var triggerStart = cardBaseTop - stackPositionPx - itemStackDistance * i;
-    var triggerEnd   = cardBaseTop - scaleEndPx;
-    var pinStart     = cardBaseTop - stackPositionPx - itemStackDistance * i;
-    var pinEnd       = _ssEndOffset - containerHeight / 2;
+    // Pointer events: disable for cards stacked behind the active one
+    // This prevents accidental clicks on the top edges of old cards
+    var isBackground = (i < activeIndex);
+    _ssCards[i].style.pointerEvents = isBackground ? 'none' : 'auto';
 
-    var scaleProgress = _ssCalcProgress(scrollTop, triggerStart, triggerEnd);
-    var targetScale   = baseScale + i * itemScale;
-    var scale         = 1 - scaleProgress * (1 - targetScale);
-    
-    var rotation = 0;
-    var blur     = 0;
+    // Scale
+    var sp = 0;
+    if (trigEnd > pinStart) {
+      if (scrollTop < pinStart) sp = 0;
+      else if (scrollTop > trigEnd) sp = 1;
+      else sp = (scrollTop - pinStart) / (trigEnd - pinStart);
+    }
+    var tgtS = 0.85 + i * 0.03;
+    var s = 1 - sp * (1 - tgtS);
 
-    var translateY = 0;
+    // TranslateY
+    var y = 0;
     if (scrollTop >= pinStart && scrollTop <= pinEnd) {
-      translateY = scrollTop - cardBaseTop + stackPositionPx + itemStackDistance * i;
+      y = scrollTop - base + stackPos + stackDist * i;
     } else if (scrollTop > pinEnd) {
-      translateY = pinEnd - cardBaseTop + stackPositionPx + itemStackDistance * i;
+      y = pinEnd - base + stackPos + stackDist * i;
     }
 
-    // Clean decimals for performance
-    translateY = Math.round(translateY * 10) / 10;
-    scale      = Math.round(scale * 1000) / 1000;
+    // Round
+    y = Math.round(y * 10) / 10;
+    s = Math.round(s * 1000) / 1000;
 
-    var last = _ssLastTransforms[i];
-    var changed = !last ||
-      Math.abs(last.translateY - translateY) > 0.1 ||
-      Math.abs(last.scale - scale) > 0.001;
-
-    if (changed) {
-      card.style.transform = 'translate3d(0,' + translateY + 'px,0) scale(' + scale + ')';
-      _ssLastTransforms[i] = { translateY: translateY, scale: scale };
+    // Write only if changed
+    if (y !== _ssLastY[i] || s !== _ssLastS[i]) {
+      _ssCards[i].style.transform = 'translate3d(0,' + y + 'px,0) scale(' + s + ')';
+      _ssLastY[i] = y;
+      _ssLastS[i] = s;
     }
   }
+}
 
-  _ssIsUpdating = false;
+function _ssLoop() {
+  if (_ssCards.length) _ssUpdate();
+  requestAnimationFrame(_ssLoop);
+}
+
+function _ssRecache() {
+  for (var i = 0; i < _ssCards.length; i++) {
+    _ssCards[i].style.transform = 'none';
+    _ssBaseOffsets[i] = _ssOffset(_ssCards[i]);
+    _ssCards[i].style.transform = 'translate3d(0,0,0)';
+  }
+  var m = document.querySelector('.scroll-stack-end');
+  if (m) { m.style.transform = 'none'; _ssEndOffset = _ssOffset(m); }
+  _ssLastY = []; _ssLastS = [];
+  _ssUpdate();
 }
 
 function initScrollStack() {
@@ -129,29 +128,19 @@ function initScrollStack() {
 
   _ssCards = Array.prototype.slice.call(cards);
   _ssBaseOffsets = [];
-  _ssLastTransforms = {};
-  _ssIsUpdating = false;
+  _ssLastY = [];
+  _ssLastS = [];
 
-  var itemDistance = 24; // px margin between cards
-
-  // Measurement Phase
   _ssCards.forEach(function(card, i) {
-    // Temporarily reset transform to measure true documentary position
     card.style.transform = 'none';
-    _ssBaseOffsets[i] = _ssGetElementOffset(card);
-
-    // Add gap between cards
-    if (i < _ssCards.length - 1) {
-      card.style.marginBottom = itemDistance + 'px';
-    } else {
-      card.style.marginBottom = '0';
-    }
-    card.style.willChange      = 'transform';
+    _ssBaseOffsets[i] = _ssOffset(card);
+    card.style.marginBottom = (i < _ssCards.length - 1) ? '24px' : '0';
+    card.style.willChange = 'transform';
     card.style.transformOrigin = 'top center';
-    card.style.transform       = 'translate3d(0, 0, 0)';
+    card.style.backfaceVisibility = 'hidden';
+    card.style.transform = 'translate3d(0,0,0)';
   });
 
-  // Measure end marker
   var inner = document.getElementById('projectsGrid');
   if (inner) {
     var marker = inner.querySelector('.scroll-stack-end');
@@ -160,32 +149,22 @@ function initScrollStack() {
       marker.className = 'scroll-stack-end';
       inner.appendChild(marker);
     }
-    // Measure marker static pos
     marker.style.transform = 'none';
-    _ssEndOffset = _ssGetElementOffset(marker);
+    _ssEndOffset = _ssOffset(marker);
   }
 
-  // Bind resize to re-cache
-  window.addEventListener('resize', function() {
-    _ssCards.forEach(function(card, i) {
-      card.style.transform = 'none';
-      _ssBaseOffsets[i] = _ssGetElementOffset(card);
-    });
-    var marker = document.querySelector('.scroll-stack-end');
-    if (marker) {
-      marker.style.transform = 'none';
-      _ssEndOffset = _ssGetElementOffset(marker);
-    }
-    updateScrollStack();
-  }, { passive: true });
+  _ssUpdate();
 
-  // Wire window scroll
-  window.addEventListener('scroll', function() {
-    requestAnimationFrame(updateScrollStack);
-  }, { passive: true });
-
-  updateScrollStack();
+  if (!_ssActive) {
+    _ssActive = true;
+    window.addEventListener('resize', function() {
+      clearTimeout(_ssResizeTimer);
+      _ssResizeTimer = setTimeout(_ssRecache, 150);
+    }, { passive: true });
+    requestAnimationFrame(_ssLoop);
+  }
 }
+
 
 /* ══════════════════════════════════════════
    3-STEP STEPPER
