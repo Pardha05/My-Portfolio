@@ -281,6 +281,13 @@ function renderSkills() {
     </div>`;
   }).join('');
 
+  grid.innerHTML += `
+    <div class="skill-bento-card reveal-right" style="display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 250px;">
+      <div id="icon-cloud-container" style="position: relative; width: 250px; height: 250px; perspective: 1000px;">
+      </div>
+    </div>
+  `;
+
   // Initial animation for the new cards
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -653,6 +660,16 @@ function initHeroCanvas() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let particles = [];
+  let mouse = { x: -1000, y: -1000 };
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseout', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -666,29 +683,52 @@ function initHeroCanvas() {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2,
-        opacity: Math.random() * 0.5
+        vx: 0,
+        vy: 0,
+        size: Math.random() * 2 + 0.5,
+        mass: Math.random() * 0.5 + 0.1,
+        opacity: Math.random() * 0.6 + 0.1,
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.02 + 0.01
       });
     }
   }
 
   function drawParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(107, 138, 173, 0.5)';
+    const isLight = document.body.classList.contains('light-theme');
+    ctx.fillStyle = isLight ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.5)';
 
     particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = 150;
 
-      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      if (dist < maxDist) {
+        const force = (maxDist - dist) / maxDist;
+        p.vx -= (dx / dist) * force * 1.5;
+        p.vy -= (dy / dist) * force * 1.5;
+      }
+
+      p.vx *= 0.92;
+      p.vy *= 0.92;
+
+      p.angle += p.speed;
+      p.x += p.vx + Math.cos(p.angle) * p.mass;
+      p.y += p.vy + Math.sin(p.angle) * p.mass;
+
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.globalAlpha = p.opacity;
       ctx.fill();
     });
+    ctx.globalAlpha = 1.0;
 
     requestAnimationFrame(drawParticles);
   }

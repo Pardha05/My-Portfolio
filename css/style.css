@@ -1,8 +1,8 @@
-/* ══════════════════════════════════════════
-   PORTFOLIO – Dark Theme Stylesheet
-   ══════════════════════════════════════════ */
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   PORTFOLIO â€“ Dark Theme Stylesheet
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ── CSS Variables ── */
+/* â”€â”€ CSS Variables â”€â”€ */
 :root {
   --bg-primary: #0a0c10;
   --bg-secondary: #0d1117;
@@ -73,7 +73,7 @@ body.light-theme {
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* ── Reset & Base ── */
+/* â”€â”€ Reset & Base â”€â”€ */
 *,
 *::before,
 *::after {
@@ -122,7 +122,7 @@ img {
   padding: 0 24px;
 }
 
-/* ── Intro Animation ── */
+/* â”€â”€ Intro Animation â”€â”€ */
 .intro-overlay {
   position: fixed;
   top: 0;
@@ -247,7 +247,7 @@ body.light-theme .pill-dot {
   background: #ffffff; /* keep dot white for contrast */
 }
 
-/* ── Animations ── */
+/* â”€â”€ Animations â”€â”€ */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -358,9 +358,9 @@ body.light-theme .pill-dot {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    NAVBAR
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .navbar {
   position: fixed;
   top: 0;
@@ -494,9 +494,9 @@ body.light-theme .pill-dot {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HERO SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -669,9 +669,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    BUTTONS
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -740,9 +740,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SECTIONS
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .section {
   padding: 100px 0;
 }
@@ -767,9 +767,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ABOUT SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -888,10 +888,10 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SKILLS SECTION
-   ══════════════════════════════════════════ */
-/* ── Skills Bento Grid ── */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* â”€â”€ Skills Bento Grid â”€â”€ */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1011,9 +1011,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PROJECTS SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -1273,9 +1273,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ACHIEVEMENTS SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1340,10 +1340,10 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MAGIC BENTO SECTION
-   ══════════════════════════════════════════ */
-/* ── Magic Animations (Global) ── */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* â”€â”€ Magic Animations (Global) â”€â”€ */
 :root {
   --magic-glow-x: 50%;
   --magic-glow-y: 50%;
@@ -1494,9 +1494,9 @@ body.light-theme .hero-profile-img {
   margin-top: 2.5rem;
 }
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HOBBIES SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hobbies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -1533,9 +1533,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RESUME SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .resume-content {
   text-align: center;
   max-width: 500px;
@@ -1594,9 +1594,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    CONTACT SECTION
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1693,9 +1693,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FOOTER
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
@@ -1738,9 +1738,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MODALS
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1859,9 +1859,9 @@ body.light-theme .hero-profile-img {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ADMIN TOOLBAR
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .admin-toolbar {
   position: fixed;
   bottom: 0;
@@ -1935,9 +1935,9 @@ body.admin-mode .admin-only {
 }
 
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RESPONSIVE
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 @media (max-width: 900px) {
   .about-grid {
     grid-template-columns: 1fr;
@@ -2062,7 +2062,7 @@ body.admin-mode .admin-only {
   }
 }
 
-/* ── Scrollbar ── */
+/* â”€â”€ Scrollbar â”€â”€ */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -2104,9 +2104,9 @@ body.admin-mode .admin-only {
   border-color: #6a4a4a;
 }
 
-/* ══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MAGIC DOCK NAVIGATION (MOBILE ONLY)
-   ══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .magic-dock-wrapper {
   position: fixed;
   bottom: 24px;
@@ -2209,7 +2209,7 @@ body.admin-mode .admin-only {
 .dock-item.active::after {
   opacity: 1;
 }
-/* ── Animated Logo ── */
+/* â”€â”€ Animated Logo â”€â”€ */
 .dev-link {
   display: flex;
   flex-direction: column;
@@ -2282,7 +2282,7 @@ body.admin-mode .admin-only {
   margin: 5px 0;
 }
 
-/* ── Plane Theme Switch (By Nawsome) ── */
+/* â”€â”€ Plane Theme Switch (By Nawsome) â”€â”€ */
 .plane-switch {
   --dot: #fff;
   --street: #6B6D76;
@@ -2478,7 +2478,7 @@ body.light-theme .plane-switch {
 }
 
 
-/* ── Animated Skill Icons ── */
+/* â”€â”€ Animated Skill Icons â”€â”€ */
 
 /* Common Icon styles */
 .skill-card-icon .dev-link,
@@ -2807,7 +2807,7 @@ body.light-theme .plane-switch {
   background: var(--bg-tertiary);
 }
 
-/* LinkedIn SVG — proper animated bounce */
+/* LinkedIn SVG â€” proper animated bounce */
 .linkedin-svg {
   width: 1.5em;
   height: 1.5em;
@@ -2838,7 +2838,7 @@ a:hover .linkedin-svg .linkedin-text { stroke: #0077b5; stroke-width: 2.2; }
   100% { transform: scale(1) rotate(0deg); }
 }
 
-/* GitHub SVG — full Octocat silhouette, no clipping */
+/* GitHub SVG â€” full Octocat silhouette, no clipping */
 .github-icon {
   width: 1.6em;
   height: 1.6em;
@@ -2895,7 +2895,7 @@ a:hover .env-body { stroke: var(--accent); }
    SCROLL STACK (Projects)
    ------------------------------------------ */
 
-/* The section itself — needs enough height for all cards to pin + release */
+/* The section itself â€” needs enough height for all cards to pin + release */
 #projects {
   padding-bottom: 0 !important;
 }
@@ -2935,12 +2935,12 @@ a:hover .env-body { stroke: var(--accent); }
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   cursor: pointer;
-  /* No 'transform' in transition — JS lerp drives transform every frame */
+  /* No 'transform' in transition â€” JS lerp drives transform every frame */
   transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  /* GPU-layer isolation — each card composites independently */
+  /* GPU-layer isolation â€” each card composites independently */
   will-change: transform;
   transform-origin: top center;
   backface-visibility: hidden;
@@ -2972,7 +2972,7 @@ a:hover .env-body { stroke: var(--accent); }
 
 .scroll-stack-card:hover {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-  /* Don't override transform here — JS controls it for the scroll-stack effect */
+  /* Don't override transform here â€” JS controls it for the scroll-stack effect */
   border-color: var(--accent);
 }
 
@@ -3154,3 +3154,31 @@ a:hover .env-body { stroke: var(--accent); }
   from { transform: scale(0); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }
 }
+
+/* -- UI/UX ENHANCEMENTS (GLASSMORPHISM & GRADIENT) -- */
+
+
+
+/* Glassmorphism & Depth for Cards */
+.skill-bento-card, .project-card, .code-block, .achievement-card {
+  background: rgba(22, 27, 34, 0.45) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+body.light-theme .skill-bento-card,
+body.light-theme .project-card,
+body.light-theme .code-block,
+body.light-theme .achievement-card {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Floating Tilt on Hover */
+.skill-bento-card:hover, .project-card:hover, .achievement-card:hover {
+  transform: translateY(-8px) scale(1.01) perspective(1000px) rotateX(2deg) rotateY(2deg);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 0 20px rgba(var(--magic-glow-color), 0.15) !important;
+}
+
